@@ -1,9 +1,12 @@
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import LoginScreen from './screens/LoginScreen';
+
 
 const App = () => {
   return (
-    <div className="app">
-      hello
-    </div>
+    <Router>
+      <LoginScreen/>
+    </Router>
   );
 }
 
