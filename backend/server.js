@@ -2,15 +2,19 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import path from 'path';
+import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
-dotenv.config()
+dotenv.config();
 
-connectDB()
+connectDB();
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
+
+app.use('/api/users', userRoutes);
+
 
 
 if (process.env.NODE_ENV === 'production') {
