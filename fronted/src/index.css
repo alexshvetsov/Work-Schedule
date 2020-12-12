@@ -1,0 +1,16 @@
+main{
+    min-height: 80vh;
+  }
+  
+thead{
+  text-align: right; 
+}
+  
+.shiftTD{
+    text-align: center;
+}
+
+.shiftTD > p{
+  display: inline-block;
+  width: 50%; 
+}  

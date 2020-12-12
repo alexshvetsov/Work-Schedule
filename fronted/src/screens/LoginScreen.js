@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-// import { login } from '../actions/userActions';
+import { login } from '../actions/userActions';
 import FormContainer from '../components/FormContainer';
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const userLogin = useSelector(state => state.userLogin);
+    const { error, loading } = userLogin;
 
     const submitHandler = (e) => {
         e.preventDefault()
+        dispatch(login(email, password))
     }
 
     return (
         <div>
             <FormContainer>
                 <h1>Sign In</h1>
+                {error && <Message variant='danger'>{error}</Message>}
+                {loading && < Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='email'>
                         <Form.Label>Email Adress</Form.Label>

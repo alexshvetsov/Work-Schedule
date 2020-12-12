@@ -5,7 +5,7 @@ import path from 'path';
 import userRoutes from './routes/userRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
-dotenv.config();
+dotenv.config();    
 
 connectDB();
 
