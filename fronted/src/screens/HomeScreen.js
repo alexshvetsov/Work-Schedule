@@ -1,10 +1,13 @@
 import React from 'react';
 import { Table, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import uuid from 'react-uuid'
 
 
 const HomeScreen = () => {
+
     const month = new Date().getMonth()
     const year = new Date().getFullYear()
     const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
@@ -12,6 +15,10 @@ const HomeScreen = () => {
         const dayWord = new Date(Number(year), Number(month), Number(dayNumber)).getDay()
         return days[dayWord]
     }
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
+    console.log(userInfo);
     const shifts = [
         {
             morning: ['אביהו', 'עוז'],
@@ -45,15 +52,17 @@ const HomeScreen = () => {
         }
     ]
     return (
-        <> 
-            <Row  style={{'direction':'rtl'}}> 
-                    <Link //add here the redirect proprty to login and after login return ehre
-                     className='btn btn-primary my-3'
-                     to='/myshifts'>
-                        המשמרות שלי
+        <>
+            <Row style={{ 'direction': 'rtl' }}>
+                <Link 
+                    className='btn btn-primary my-3'
+                    to={userInfo ? '/myshifts' : '/login?redirect=myshifts'}>
+                    המשמרות שלי
                     </Link>
-                    <Link className='btn btn-success my-3' to='/submitshifts'>
-                        הגשת משמרות
+                <Link
+                    className='btn btn-success my-3'
+                    to={userInfo ? '/submitshifts' : '/login?redirect=submitshifts'}>
+                    הגשת משמרות
                     </Link>
             </Row>
             <Table striped bordered hover responsive className='table-sm'>
@@ -89,7 +98,7 @@ const HomeScreen = () => {
                         shifts.map((day, index) => (
                             <tr key={uuid()}>
                                 <td>
-                                    {day.trainings.map(p => <p key={uuid()} className='ml-3' style={{ 'display': 'inline-block' }}>{p}</p>)}
+                                    {day.trainings.map((p, index) => <p key={uuid()} className='ml-3' style={{ 'display': 'inline-block' }}>{index > 0 ? ',' : null} {p}</p>)}
                                 </td>
                                 <td className='shiftTD'>
                                     <p>{day.evening[0]}</p>
@@ -103,7 +112,7 @@ const HomeScreen = () => {
                                     <p>{day.morning[0]}</p>
                                     <p>{day.morning[1]}</p>
                                 </td>
-                                <th>{`${index + 1}/${month}/${year}`}</th>
+                                <th>{`${index + 1}/${month + 1}/${year}`}</th>
                                 <th>{setDay(index + 1)}</th>
                             </tr>
                         ))

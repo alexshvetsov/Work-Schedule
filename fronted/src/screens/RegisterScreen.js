@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,9 +16,16 @@ const RegisterScreen = ({ location, history }) => {
 
     const dispatch = useDispatch();
     const userRegister = useSelector(state => state.userRegister);
-    const { error, loading } = userRegister;
+    const { error, loading, userInfo } = userRegister;
 
-  
+    const redirect = location.search ? location.search.split('=')[1] : '/';
+
+    useEffect(() => {
+        if (userInfo) {
+            history.push(redirect)
+        }
+    }, [history, userInfo, redirect])
+
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -26,10 +33,6 @@ const RegisterScreen = ({ location, history }) => {
         if (password !== coniformPassword) {
             setMessage('Passwords do not match')
         } else {
-            console.log(name);
-            console.log(password);
-            console.log(coniformPassword);
-            console.log(email);
             dispatch(register(name, email, password))
         }
     };
@@ -74,7 +77,7 @@ const RegisterScreen = ({ location, history }) => {
                 <Button type='submit' varient='primary'>Register</Button>
             </Form>
             <Row className="py-3">
-                <Col> Already got a user? <Link to={'/login'}>Login</Link></Col>
+                <Col> Already got a user? <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link></Col>
             </Row>
         </FormContainer>
     )
