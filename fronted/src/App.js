@@ -5,6 +5,7 @@ import { Container } from 'react-bootstrap';
 import Header from './components/Header';
 import HomeScreen from './screens/HomeScreen';
 import SubmitShiftsScreen from './screens/SubmitShiftsScreen';
+import ShiftsPanelScreen from './screens/ShiftsPanelScreen';
 
 
 
@@ -17,6 +18,7 @@ const App = () => {
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/submitshifts' component={SubmitShiftsScreen} />
+          <Route path='/admin/setshifts' component={ShiftsPanelScreen} />
           <Route path='/' component={HomeScreen} exact/>
         </Container>
       </main>

@@ -1,6 +1,10 @@
+.rtl{
+  direction: rtl;
+}
+
 main{
     min-height: 80vh;
-  }
+}
   
 thead{
   text-align: right; 

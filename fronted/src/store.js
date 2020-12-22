@@ -5,6 +5,7 @@ import {
     userLoginReducer, userRegisterReducer, userDetailsReducer,
     userUpdateProfileReducer, userListReducer, userDeleteReducer, userUpdateReducer
 } from './reducers/userReducers.js'
+import { submitShiftsReducer,shiftsDateReducer,updateSubmittedShiftsReducer } from './reducers/submittedShiftsReducer.js'
 
 
 const reducer = combineReducers({
@@ -15,16 +16,24 @@ const reducer = combineReducers({
     userList: userListReducer,
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
+    submitShifts: submitShiftsReducer,
+    updateSubmittedShifts:updateSubmittedShiftsReducer,
+    shiftsDate:shiftsDateReducer
 })
 
-
+// להסויף שאם יש בבסיס נונים או בלוגאל סטורג איזהשו משמרות מוגשות זה יעדכן אליהם
 const userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
 
+    const submittedshiftsFromStorage = localStorage.getItem('submittedshifts')
+    ? JSON.parse(localStorage.getItem('submittedshifts'))
+    : null
+
 const initialState = {
-    userLogin: { userInfo: userInfoFromStorage }
-}
+    userLogin: { userInfo: userInfoFromStorage },
+    submitShifts:{submittedShifts:submittedshiftsFromStorage}
+} 
 
 const middleware = [thunk]
 

@@ -6,8 +6,8 @@ const submittedShiftsSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    date: { type: Date, default: submittedShift[0].date },
-    submittedShifts: [
+    date: { type: Date, required: true },
+    submittedShiftsArray: [
         {
             date: { type: Date, required: true },
             submittedShift: { type: String, required: true }
