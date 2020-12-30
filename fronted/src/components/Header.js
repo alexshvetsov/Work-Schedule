@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
@@ -13,7 +13,7 @@ const Header = () => {
     const { userInfo } = userLogin
     const dispatch = useDispatch()
 
-    const logoutHandler = () => { 
+    const logoutHandler = () => {
         dispatch(logout())
     }
     return (
@@ -28,12 +28,16 @@ const Header = () => {
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ml-auto">
                             {userInfo && (
-                                <Button  variant="danger" size="sm" onClick={logoutHandler} className='mr-3'>התנתק</Button>
+                                <Button variant="danger" size="sm" onClick={logoutHandler} className='mr-3'>התנתק</Button>
                             )}
-                            {userInfo && (<Navbar.Text>
-                            { userInfo.name}
+                            {userInfo && userInfo.isAdmin && <LinkContainer to='/admin/setshifts'>
+                                <Nav.Link >הכן משמרות</Nav.Link>
+                            </LinkContainer>}
+                            {userInfo && (<Navbar.Text style={{ 'display': 'flex' }}>
+                                <span style={{ 'margin': 'auto' }}> {userInfo.name}</span>
                             </Navbar.Text>
                             )}
+
                             {!userInfo && <LinkContainer to='/login'>
                                 <Nav.Link ><i className='fas fa-user pr-2'></i>Sign in</Nav.Link>
                             </LinkContainer>}

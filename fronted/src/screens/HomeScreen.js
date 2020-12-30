@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Row, Col } from 'react-bootstrap'
+import { Table, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -14,11 +14,10 @@ const HomeScreen = () => {
     const setDay = (dayNumber) => {
         const dayWord = new Date(Number(year), Number(month), Number(dayNumber)).getDay()
         return days[dayWord]
-    }
+    } 
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
-    console.log(userInfo);
     const shifts = [
         {
             morning: ['אביהו', 'עוז'],

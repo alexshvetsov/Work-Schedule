@@ -8,8 +8,8 @@ const SubmitShiftsScreen = () => {
 
     const dispatch = useDispatch();
 
-    const shiftsDate = useSelector(state => state.shiftsDate)
-    const { date, numberOfDays } = shiftsDate
+    const shiftsDateDays = useSelector(state => state.shiftsDateDays)
+    const { date, daysAmount } = shiftsDateDays 
 
     const submitShifts = useSelector(state => state.submitShifts)
     const { submittedShifts } = submitShifts
@@ -17,7 +17,7 @@ const SubmitShiftsScreen = () => {
     console.log( new Date(date)); 
     if (!submittedShifts || new Date(submittedShifts.date).toString() != new Date(date).toString() ) { 
         let startingDate = new Date(date)
-        for (let i = 0; i < numberOfDays; i++) {
+        for (let i = 0; i < daysAmount; i++) {
             let newDate = new Date(startingDate.setDate(startingDate.getDate() + 1))
             submittedShiftsArray.push(
                 {

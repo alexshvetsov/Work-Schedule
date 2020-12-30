@@ -30,13 +30,5 @@ export const updateSubmittedShiftsReducer =(state={},action)=>{
 }
 
 
-const date = new Date(2020, 11, 19)        
-const numberOfDays = 15
 
-export const shiftsDateReducer = (state = {date:date,numberOfDays:numberOfDays}, action) => {
-    switch (action.type) {
-        default:
-            return state;
-    }
-}
 

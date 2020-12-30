@@ -6,7 +6,6 @@ const submitShifts = asyncHandler(async (req, res) => {
     let { submittedShiftsArray,date } = req.body
     const dateFromString = new Date(date)
     let newDate = new Date(dateFromString.setDate(dateFromString.getDate() + 1))
-        console.log(submittedShiftsArray);
         const newSubmittedShifts = new SubmittedShifts({ 
          user: req.user._id, submittedShiftsArray, date 
             

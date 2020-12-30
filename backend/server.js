@@ -4,6 +4,7 @@ import connectDB from './config/db.js';
 import path from 'path';
 import userRoutes from './routes/userRoutes.js';
 import submittedShiftsRoutes from './routes/submittedShiftsRoutes.js';
+import dateDaysRoutes from './routes/dateDaysRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 dotenv.config();    
@@ -16,6 +17,7 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use('/api/submittedshifts', submittedShiftsRoutes);
+app.use('/api/datedays', dateDaysRoutes);
 
 
 
