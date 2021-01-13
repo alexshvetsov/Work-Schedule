@@ -18,4 +18,5 @@ router.route('/:id')
     .get(protect, admin, getUserById)
     .put(protect, admin, updateUser)
 
+
 export default router  

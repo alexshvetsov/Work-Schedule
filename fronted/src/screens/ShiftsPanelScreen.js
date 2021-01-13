@@ -1,6 +1,5 @@
 import React from 'react'
 import TeamMaker from '../components/TeamMaker'
-import HomeScreen from './HomeScreen'
 import { Col, Row,Container } from 'react-bootstrap'
 import ShiftsMaker from '../components/ShiftsMaker'
 

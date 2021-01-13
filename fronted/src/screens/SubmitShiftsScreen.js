@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { Table, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { submitShiftsAction,updateSubmittedShiftsAction } from '../actions/submitShiftsActions.js'
+import { submitShiftsAction, updateSubmittedShiftsAction } from '../actions/submitShiftsActions.js'
+import { getDateDaysAction } from '../actions/dateDaysActions';
+
 
 
 const SubmitShiftsScreen = () => {
@@ -9,26 +11,28 @@ const SubmitShiftsScreen = () => {
     const dispatch = useDispatch();
 
     const shiftsDateDays = useSelector(state => state.shiftsDateDays)
-    const { date, daysAmount } = shiftsDateDays 
+    const { date, daysAmount } = shiftsDateDays
 
     const submitShifts = useSelector(state => state.submitShifts)
     const { submittedShifts } = submitShifts
     let submittedShiftsArray = []
-    console.log( new Date(date)); 
-    if (!submittedShifts || new Date(submittedShifts.date).toString() != new Date(date).toString() ) { 
-        let startingDate = new Date(date)
-        for (let i = 0; i < daysAmount; i++) {
-            let newDate = new Date(startingDate.setDate(startingDate.getDate() + 1))
-            submittedShiftsArray.push(
-                {
-                    date: newDate,
-                    submittedShift: 'הכול'
-                }
-            )
+
+
+    if (!submittedShifts || new Date(submittedShifts.date).toString() !== new Date(date).toString()) {
+        if (date) {
+            let startingDate = new Date(date)
+            for (let i = 0; i < daysAmount; i++) {
+                let newDate = i === 0 ? new Date(startingDate.setDate(startingDate.getDate())) : new Date(startingDate.setDate(startingDate.getDate() + 1))
+                submittedShiftsArray.push(
+                    {
+                        date: newDate,
+                        submittedShift: 'הכול'
+                    }
+                )
+            }
         }
     } else {
-        console.log('essd')
-         submittedShiftsArray = submittedShifts.submittedShiftsArray
+        submittedShiftsArray = submittedShifts.submittedShiftsArray
 
     }
 
@@ -38,14 +42,22 @@ const SubmitShiftsScreen = () => {
     }
 
     const submitForm = () => {
-    if (!submittedShifts || new Date(submittedShifts.date).toString() != new Date(date).toString() ) { 
-        dispatch(submitShiftsAction({ date, submittedShiftsArray }))
-    }else{
-        console.log('else2');
-        dispatch(updateSubmittedShiftsAction({date,submittedShiftsArray}))
+        if (!submittedShifts || new Date(submittedShifts.date).toString() !== new Date(date).toString()) {
+            dispatch(submitShiftsAction({ date, submittedShiftsArray }))
+        } else {
+            dispatch(updateSubmittedShiftsAction({ date, submittedShiftsArray }))
+        }
+
     }
 
-    } 
+
+    useEffect(() => {
+        if (!date) {
+            dispatch(getDateDaysAction())
+        }
+    }, [dispatch,date])
+
+
 
     const options = ['הכול', 'כלום', 'בוקר', 'צהריים', 'לילה', 'בוקר / צהריים', 'בוקר / לילה', 'צהריים / לילה']
     return (

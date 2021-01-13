@@ -5,9 +5,10 @@ import {
     userLoginReducer, userRegisterReducer, userDetailsReducer,
     userUpdateProfileReducer, userListReducer, userDeleteReducer, userUpdateReducer
 } from './reducers/userReducers.js'
-import { submitShiftsReducer,updateSubmittedShiftsReducer } from './reducers/submittedShiftsReducer.js'
+import { submitShiftsReducer,updateSubmittedShiftsReducer,getAllSubmittedShiftsByDateReducer } from './reducers/submittedShiftsReducer.js'
 import { workerTeamsReducer } from './reducers/workerTeamsReducer.js';
-import { updateDateDaysReducer, shiftsDateDaysReducer } from './reducers/dateDaysReducers.js';
+import { postScheduleReducer,updateScheduleReducer } from './reducers/scheduleReducers.js';
+import { updateDateDaysReducer, getShiftsDateDaysReducer } from './reducers/dateDaysReducers.js';
 
 
 const reducer = combineReducers({
@@ -20,12 +21,14 @@ const reducer = combineReducers({
     userUpdate: userUpdateReducer,
     submitShifts: submitShiftsReducer,
     updateSubmittedShifts:updateSubmittedShiftsReducer,
-    shiftsDateDays:shiftsDateDaysReducer,
+    getAllSubmittedShiftsByDate:getAllSubmittedShiftsByDateReducer,
+    shiftsDateDays:getShiftsDateDaysReducer, 
+    updateDateDays:updateDateDaysReducer,
     workerTeams:workerTeamsReducer,
-    updateDateDays:updateDateDaysReducer
+    postSchedule:postScheduleReducer, 
+    updateSchedule:updateScheduleReducer
 }) 
-
-// להסויף שאם יש בבסיס נונים או בלוגאל סטורג איזהשו משמרות מוגשות זה יעדכן אליהם
+ 
 const userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null

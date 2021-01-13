@@ -1,4 +1,7 @@
-import { UPDATE_DATE_DAYS_REQUEST, UPDATE_DATE_DAYS_SUCCESS, UPDATE_DATE_DAYS_FAIL } from '../constants/dateDaysConstants.js'
+import {
+    UPDATE_DATE_DAYS_REQUEST, UPDATE_DATE_DAYS_SUCCESS, UPDATE_DATE_DAYS_FAIL,
+    GET_DATE_DAYS_REQUEST, GET_DATE_DAYS_SUCCESS, GET_DATE_DAYS_FAIL
+} from '../constants/dateDaysConstants.js'
 
 export const updateDateDaysReducer = (state = {}, action) => {
 
@@ -13,12 +16,15 @@ export const updateDateDaysReducer = (state = {}, action) => {
             return state
     }
 }
-
-const date = new Date(2020, 11, 19)        
-const numberOfDays = 15
-
-export const shiftsDateDaysReducer = (state = {date:date,daysAmount:numberOfDays}, action) => {
+ 
+export const getShiftsDateDaysReducer = (state = { }, action) => {
     switch (action.type) {
+        case GET_DATE_DAYS_REQUEST:
+            return { loading: true }
+        case GET_DATE_DAYS_SUCCESS:
+            return { loading: false, date: new Date(action.payload.date), daysAmount: action.payload.daysAmount }
+        case GET_DATE_DAYS_FAIL:
+            return { loading: false, error: action.payload }
         default:
             return state;
     }

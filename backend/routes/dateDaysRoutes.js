@@ -5,8 +5,8 @@ import { postDateDays, getLastDateDatys } from '../controllers/dateDaysControlle
 
 
 router.route('/')
-    .get(protect,getLastDateDatys)
+    .get(getLastDateDatys)
     .post(protect, admin, postDateDays)
-
+ 
 
 export default router  

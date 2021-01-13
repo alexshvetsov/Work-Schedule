@@ -14,7 +14,7 @@ const HomeScreen = () => {
     const setDay = (dayNumber) => {
         const dayWord = new Date(Number(year), Number(month), Number(dayNumber)).getDay()
         return days[dayWord]
-    } 
+    }
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
@@ -22,7 +22,7 @@ const HomeScreen = () => {
         {
             morning: ['אביהו', 'עוז'],
             afternoon: ['אלעד', 'אלעזר'],
-            evening: ['ינון', 'אריאל'],
+            evening: [],
             trainings: ['אלכס', 'רון']
         },
         {
@@ -53,7 +53,7 @@ const HomeScreen = () => {
     return (
         <>
             <Row style={{ 'direction': 'rtl' }}>
-                <Link 
+                <Link
                     className='btn btn-primary my-3'
                     to={userInfo ? '/myshifts' : '/login?redirect=myshifts'}>
                     המשמרות שלי
@@ -100,8 +100,8 @@ const HomeScreen = () => {
                                     {day.trainings.map((p, index) => <p key={uuid()} className='ml-3' style={{ 'display': 'inline-block' }}>{index > 0 ? ',' : null} {p}</p>)}
                                 </td>
                                 <td className='shiftTD'>
-                                    <p>{day.evening[0]}</p>
-                                    <p>{day.evening[1]}</p>
+                                    <p>{day.evening[0] || ''}</p>
+                                    <p>{day.evening[1] || ''}</p>
                                 </td>
                                 <td className='shiftTD'>
                                     <p>{day.afternoon[0]}</p>

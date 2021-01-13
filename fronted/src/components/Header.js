@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 
 import {
-    Navbar, Nav, Container, NavDropdown,
+    Navbar, Nav, Container,
 } from 'react-bootstrap'
 
 const Header = () => {

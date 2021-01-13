@@ -2,8 +2,16 @@
   direction: rtl;
 }
 
+.align-self{
+  align-self:center 
+}
+
 main{
     min-height: 80vh;
+}
+
+.center{
+  text-align: center;
 }
   
 thead{

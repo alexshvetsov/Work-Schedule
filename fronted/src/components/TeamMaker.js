@@ -1,35 +1,50 @@
-import React, { useState,useEffect } from 'react'
-import { Form, Modal, Button } from 'react-bootstrap'
+import React, { useState, useEffect } from 'react'
+import { Form, Modal, Button, ListGroup } from 'react-bootstrap'
 import uuid from 'react-uuid'
-import { useDispatch } from 'react-redux';
-import {UPDATE_WORKER_TEAMS} from '../constants/workerTeamsConstants.js'
-
+import { useDispatch, useSelector } from 'react-redux';
+import { UPDATE_WORKER_TEAMS } from '../constants/workerTeamsConstants.js'
+import { listUsers } from '../actions/userActions.js';
 
 const TeamMaker = () => {
     const [show, setShow] = useState(false);
     const [teamSize, setTeamSize] = useState(0)
-    let teamsArray =[]
+    let teamsArray = []
 
-     const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const workersArray = ['אלי סבג', 'שי שלום', 'שי כהן', 'רומן יונטל', 'אלכס שווצוב', 'יואל רומר', 'דניאל אלון', 'גון אניק', 'יגאל לוי']
-    
+
+    const userList = useSelector(state => state.userList)
+    const { users } = userList
+
+    const getAllSubmittedShiftsByDate = useSelector(state => state.getAllSubmittedShiftsByDate)
+    const { submittedShiftsByDate } = getAllSubmittedShiftsByDate
+
+
     let mutableWorkersArray = [...workersArray]
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const updateMutableWorkersArray = (e, teamIndex, inTeamIndex) => {
-        if(teamsArray.findIndex(team=>team.teamIndex== teamIndex && team.inTeamIndex== inTeamIndex) !=-1){
-            teamsArray[teamsArray.findIndex(team=>team.teamIndex== teamIndex && team.inTeamIndex== inTeamIndex)].name=e.target.value
-        }else{
-            teamsArray.push({teamIndex, inTeamIndex, name:e.target.value})
+        if (teamsArray.findIndex(team => team.teamIndex === teamIndex && team.inTeamIndex === inTeamIndex) !== -1) {
+            teamsArray[teamsArray.findIndex(team => team.teamIndex === teamIndex && team.inTeamIndex === inTeamIndex)].name = e.target.value
+        } else {
+            teamsArray.push({ teamIndex, inTeamIndex, name: e.target.value })
         }
     }
 
-    const saveTeams=()=>{
-        console.log(teamsArray);
-        dispatch({type:UPDATE_WORKER_TEAMS, payload:teamsArray})
+    const saveTeams = () => {
+        dispatch({ type: UPDATE_WORKER_TEAMS, payload: teamsArray })
     }
+
+    const countShifts=(name)=>{
+        
+    }
+
+
+    useEffect(() => {
+        dispatch(listUsers())
+    }, [dispatch])
 
     return (
         <>
@@ -70,7 +85,17 @@ const TeamMaker = () => {
                 </Modal.Footer>
             </Modal>
 
-            {workersArray.map(worker => (<p key={worker}>{worker}</p>))}
+            <ListGroup >
+                <ListGroup.Item variant="success">הגישו משמרות</ListGroup.Item>
+                {(users && submittedShiftsByDate) &&
+                    submittedShiftsByDate.options[0][1].map(worker =>
+                        <ListGroup.Item key={uuid()}>{worker[0]}</ListGroup.Item>)
+                }
+                <ListGroup.Item variant='danger'>לא הגישו משמרות</ListGroup.Item> 
+                {(users && submittedShiftsByDate) &&
+                    users.map(user => submittedShiftsByDate.submitted.findIndex(worker => worker === user.name) > -1 ? null : <ListGroup.Item key={uuid()}>{user.name}</ListGroup.Item>
+                    )}
+            </ListGroup>
         </>
     )
 }
