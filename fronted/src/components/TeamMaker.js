@@ -37,14 +37,14 @@ const TeamMaker = () => {
         dispatch({ type: UPDATE_WORKER_TEAMS, payload: teamsArray })
     }
 
-    const countShifts=(name)=>{
-        
-    }
 
 
-    useEffect(() => {
-        dispatch(listUsers())
-    }, [dispatch])
+
+    useEffect(() => { 
+        if (users && users.length === 0) {
+            dispatch(listUsers())
+        }
+    }, [dispatch,users])
 
     return (
         <>
@@ -91,7 +91,7 @@ const TeamMaker = () => {
                     submittedShiftsByDate.options[0][1].map(worker =>
                         <ListGroup.Item key={uuid()}>{worker[0]}</ListGroup.Item>)
                 }
-                <ListGroup.Item variant='danger'>לא הגישו משמרות</ListGroup.Item> 
+                <ListGroup.Item variant='danger'>לא הגישו משמרות</ListGroup.Item>
                 {(users && submittedShiftsByDate) &&
                     users.map(user => submittedShiftsByDate.submitted.findIndex(worker => worker === user.name) > -1 ? null : <ListGroup.Item key={uuid()}>{user.name}</ListGroup.Item>
                     )}

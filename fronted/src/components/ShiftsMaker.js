@@ -4,7 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import "react-datepicker/dist/react-datepicker.css";
 import uuid from 'react-uuid'
 import { updateDateDaysAction, getDateDaysAction } from '../actions/dateDaysActions';
-import { postScheduleAction,updateScheduleAction } from '../actions/scheduleActions';
+import { postScheduleAction, updateScheduleAction, postTemporaryScheduleAction, updateTemporaryScheduleAction } from '../actions/scheduleActions';
+import { UPDATE_TEMP_SHIFTS_ARRAY } from '../constants/scheduleConstants';
 
 const ShiftsMaker = () => {
     const dispatch = useDispatch()
@@ -24,16 +25,24 @@ const ShiftsMaker = () => {
 
     const shiftsDateDays = useSelector(state => state.shiftsDateDays)
     const { date: dateState, daysAmount: daysAmountState } = shiftsDateDays
-    
+
+    const getInProgressSchedule = useSelector(state => state.getInProgressSchedule)
+    const { schedule } = getInProgressSchedule
+
+
+
+
     const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
 
 
     const [shifts, setShifts] = useState([])
+    const [disableSaveButton, setDisableSaveButton] = useState(false)
 
     const setWorker = (worker, day, shift, index) => {
         let tempShifts = [...shifts]
-        tempShifts[day][shift][index] = worker
+        worker !== 'worker' ? tempShifts[day][shift][index] = worker : tempShifts[day][shift][index] = ''
         setShifts(tempShifts)
+        dispatch({ type: UPDATE_TEMP_SHIFTS_ARRAY, payload: tempShifts })
     }
 
     const setDay = (dayNumber) => {
@@ -64,7 +73,6 @@ const ShiftsMaker = () => {
         tempShifts[day].trainings.findIndex(workerArray => workerArray === worker) > -1 ?
             tempShifts[day].trainings.splice(tempShifts[day].trainings.findIndex(workerArray => workerArray === worker), 1)
             : tempShifts[day].trainings.push(worker)
-        console.log(tempShifts[day].trainings);
         setShifts(tempShifts)
     }
 
@@ -76,7 +84,15 @@ const ShiftsMaker = () => {
 
 
     useEffect(() => {
-        if (shifts.length === 0) {
+        if(schedule && schedule.done){
+            setDisableSaveButton(true) 
+
+        }
+        if (schedule && schedule.shifts) {
+            setShifts(schedule.shifts)
+
+
+        } else {
             let shiftsArray = []
             for (let i = 0; i < daysAmountState; i++) {
                 shiftsArray.push({
@@ -89,18 +105,27 @@ const ShiftsMaker = () => {
             setShifts(shiftsArray)
         }
         if (!daysAmountState) {
-
             dispatch(getDateDaysAction())
         }
-    }, [dispatch, daysAmountState, shifts.length])
+    }, [dispatch, daysAmountState, shifts.length, dateState, schedule])
 
-    const postNewSchedule = () => {
-        dispatch(postScheduleAction({ shifts, dateState }))
+    const postDoneSchedule = () => {
+        if (!schedule || !schedule._id) {
+            dispatch(postScheduleAction({ shifts, dateState }))
+            setDisableSaveButton(true) 
+        } else {
+            setDisableSaveButton(true) 
+            dispatch(updateScheduleAction(shifts, schedule._id))
+        }
     }
-    
-    const updateNewSchedule=()=>{
-        dispatch(updateScheduleAction( shifts, dateState )) 
-         
+
+    const postTemporarySchedule = () => {
+        if (!schedule) {
+            dispatch(postTemporaryScheduleAction({ shifts, dateState }))
+        } else {
+            dispatch(updateTemporaryScheduleAction(shifts, dateState))
+        }
+
     }
 
     return (
@@ -151,7 +176,7 @@ const ShiftsMaker = () => {
             {dateState && <Table striped bordered hover responsive className='table-sm'>
                 <thead>
                     <tr>
-                        <th onClick={() => { console.log(shifts) }}>רענון</th>
+                        <th>רענון</th>
                         <th>משמרת לילה 22:00-6:00</th>
                         <th>משמרת צהריים 14:00-22:00</th>
                         <th>משמרת בוקר 06:00-14:00:00</th>
@@ -232,14 +257,14 @@ const ShiftsMaker = () => {
             </Table>
             }
 
-            <Button variant="success" className="mr-3" onClick={postNewSchedule}>
+            <Button variant="success" className="mr-3" onClick={postDoneSchedule}>
                 שלח סידור חדש
                 </Button>
-            <Button variant="success" className="" onClick={updateNewSchedule}>
-                עדכן סידור
+            <Button variant="success" className="" onClick={postTemporarySchedule} disabled={disableSaveButton}>
+                שמור סידור
                 </Button>
         </>
-
+ 
     )
 }
 

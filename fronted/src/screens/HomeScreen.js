@@ -1,15 +1,20 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Table, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-
+import { useSelector,useDispatch } from 'react-redux';
 import uuid from 'react-uuid'
+import { getAllSchedulesAction } from '../actions/scheduleActions';
+import Paginate from '../components/Paginate';
 
 
-const HomeScreen = () => {
+const HomeScreen = ({match}) => {
 
     const month = new Date().getMonth()
     const year = new Date().getFullYear()
+    const pageNumber = match.params.pageNumber || 1
+
+    const dispatch = useDispatch()
+
     const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
     const setDay = (dayNumber) => {
         const dayWord = new Date(Number(year), Number(month), Number(dayNumber)).getDay()
@@ -18,38 +23,17 @@ const HomeScreen = () => {
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
-    const shifts = [
-        {
-            morning: ['אביהו', 'עוז'],
-            afternoon: ['אלעד', 'אלעזר'],
-            evening: [],
-            trainings: ['אלכס', 'רון']
-        },
-        {
-            morning: ['מתו', 'עוז'],
-            afternoon: ['אלעד', 'יובל'],
-            evening: ['רון', 'אלכס'],
-            trainings: []
-        },
-        {
-            morning: ['מתן', 'אביהו'],
-            afternoon: ['אריאל', 'ינון'],
-            evening: ['עידן', 'אלכס'],
-            trainings: []
-        },
-        {
-            morning: ['אלעד', 'אלעזר'],
-            afternoon: ['עוז', 'מתן'],
-            evening: ['אלעד', 'אריאל'],
-            trainings: []
-        },
-        {
-            morning: ['אביהו', 'עוז'],
-            afternoon: ['אלעד', 'אלעזר'],
-            evening: ['אלכס', 'רון'],
-            trainings: ['מתן']
-        }
-    ]
+
+    
+    const getSchedules = useSelector(state => state.getSchedules);
+    const { schedules, pages, page  } = getSchedules;
+
+    useEffect(() => {
+        console.log( match.params.pageNumber);
+            dispatch(getAllSchedulesAction(pageNumber))
+    }, [dispatch,pageNumber])
+
+
     return (
         <>
             <Row style={{ 'direction': 'rtl' }}>
@@ -93,8 +77,8 @@ const HomeScreen = () => {
                         <td></td>
                         <td></td>
                     </tr>
-                    {
-                        shifts.map((day, index) => (
+                    {schedules && 
+                        schedules[0].shifts.map((day, index) => (
                             <tr key={uuid()}>
                                 <td>
                                     {day.trainings.map((p, index) => <p key={uuid()} className='ml-3' style={{ 'display': 'inline-block' }}>{index > 0 ? ',' : null} {p}</p>)}
@@ -118,9 +102,11 @@ const HomeScreen = () => {
                     }
                 </tbody>
             </Table>
+            <Paginate pages={pages} page={page}  /> 
 
         </>
     )
 }
 
 export default HomeScreen
+ 

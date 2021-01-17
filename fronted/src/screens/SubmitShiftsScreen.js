@@ -1,24 +1,27 @@
-import React, { useEffect } from 'react'
-import { Table, Form, Button } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Table, Form, Button, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { submitShiftsAction, updateSubmittedShiftsAction } from '../actions/submitShiftsActions.js'
 import { getDateDaysAction } from '../actions/dateDaysActions';
 
 
 
-const SubmitShiftsScreen = () => {
+const SubmitShiftsScreen = ({ history }) => {
 
     const dispatch = useDispatch();
+
+    const [showAlert, setShowAlert] = useState(false)
 
     const shiftsDateDays = useSelector(state => state.shiftsDateDays)
     const { date, daysAmount } = shiftsDateDays
 
-    const submitShifts = useSelector(state => state.submitShifts)
-    const { submittedShifts } = submitShifts
+    const getOneSubmittedShiftsByDate = useSelector(state => state.getOneSubmittedShiftsByDate)
+    const { submittedShiftsByDate } = getOneSubmittedShiftsByDate
+
     let submittedShiftsArray = []
 
 
-    if (!submittedShifts || new Date(submittedShifts.date).toString() !== new Date(date).toString()) {
+    if (!submittedShiftsByDate) {
         if (date) {
             let startingDate = new Date(date)
             for (let i = 0; i < daysAmount; i++) {
@@ -32,7 +35,7 @@ const SubmitShiftsScreen = () => {
             }
         }
     } else {
-        submittedShiftsArray = submittedShifts.submittedShiftsArray
+        submittedShiftsArray = submittedShiftsByDate.submittedShiftsArray
 
     }
 
@@ -42,11 +45,17 @@ const SubmitShiftsScreen = () => {
     }
 
     const submitForm = () => {
-        if (!submittedShifts || new Date(submittedShifts.date).toString() !== new Date(date).toString()) {
+        setShowAlert(true)
+        if (!submittedShiftsByDate) {
             dispatch(submitShiftsAction({ date, submittedShiftsArray }))
         } else {
             dispatch(updateSubmittedShiftsAction({ date, submittedShiftsArray }))
         }
+        setTimeout(() => {
+            setShowAlert(false)
+            history.push('/')
+        }, 2000)
+
 
     }
 
@@ -55,16 +64,21 @@ const SubmitShiftsScreen = () => {
         if (!date) {
             dispatch(getDateDaysAction())
         }
-    }, [dispatch,date])
+
+    }, [dispatch, date])
 
 
 
     const options = ['הכול', 'כלום', 'בוקר', 'צהריים', 'לילה', 'בוקר / צהריים', 'בוקר / לילה', 'צהריים / לילה']
     return (
         <>
-            <Table striped bordered hover responsive className='table-sm'>
+            {showAlert && <Alert className='flex' variant='success'>
+                <p className='align-self'>!!!המשמרות הוגשו בהצלחה</p>
+            </Alert>
+            }
+            { submittedShiftsArray && <Table striped bordered hover responsive className='table-sm'>
                 <thead>
-                    <tr>
+                    <tr> 
                         <th>משמרות</th>
                         <th>תאריך</th>
                     </tr>
@@ -77,14 +91,14 @@ const SubmitShiftsScreen = () => {
                                     {options.map((option) => <option key={option} value={option}>{option} </option>)}
                                 </Form.Control>
                             </td>
-                            {/* <td>{`${submittedShift.date.getDate()}/${submittedShift.date.getMonth() + 1}`}</td> */}
                             <td>{`${new Date(submittedShift.date).getDate()}/${new Date(submittedShift.date).getMonth() + 1}`}</td>
                         </tr>
                     ))}
                 </tbody>
-            </Table>
+
+            </Table>}
             <Button variant="success" size="lg" block onClick={submitForm}>
-                Block level button
+                הגש משמרות
             </Button>
         </>
     )

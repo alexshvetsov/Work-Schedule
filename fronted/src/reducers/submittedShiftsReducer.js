@@ -2,10 +2,11 @@ import {
     GET_ALL_SUBMITTED_SHIFTS_BY_DATE_REQUEST, GET_ALL_SUBMITTED_SHIFTS_BY_DATE_SUCCESS, GET_ALL_SUBMITTED_SHIFTS_BY_DATE_FAIL,
     SUBMIT_SHIFTS_FAIL, SUBMIT_SHIFTS_REQUEST, SUBMIT_SHIFTS_SUCCESS,
     UPDATE_SUBMITTED_SHIFTS_FAIL, UPDATE_SUBMITTED_SHIFTS_REQUEST, UPDATE_SUBMITTED_SHIFTS_SUCCESS,
+     GET_ONE_SUBMITTED_SHIFTS_BY_DATE_REQUEST, GET_ONE_SUBMITTED_SHIFTS_BY_DATE_SUCCESS, GET_ONE_SUBMITTED_SHIFTS_BY_DATE_FAIL,
 
 } from '../constants/submittedShiftsConstants.js'
 
-export const submitShiftsReducer = (state = { submittedShifts: {} }, action) => {
+export const submitShiftsReducer = (state = { }, action) => {
     switch (action.type) {
         case SUBMIT_SHIFTS_REQUEST:
             return { loading: true }
@@ -43,5 +44,20 @@ export const getAllSubmittedShiftsByDateReducer = (state={}, action) => {
             return state
     }
 }
+
+export const getOneSubmittedShiftsByDateReducer = (state={}, action) => {
+    switch (action.type) { 
+        case GET_ONE_SUBMITTED_SHIFTS_BY_DATE_REQUEST:
+            return { loading: true }
+        case GET_ONE_SUBMITTED_SHIFTS_BY_DATE_SUCCESS:
+            return { loading: false, submittedShiftsByDate: action.payload } 
+        case GET_ONE_SUBMITTED_SHIFTS_BY_DATE_FAIL:
+            return { loading: false, error: action.payload }
+        default:
+            return state
+    }
+}
+
+
 
 

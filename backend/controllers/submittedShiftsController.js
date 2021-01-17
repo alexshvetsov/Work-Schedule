@@ -4,8 +4,6 @@ import asyncHandler from 'express-async-handler';
 
 const submitShifts = asyncHandler(async (req, res) => {
     let { submittedShiftsArray, date } = req.body
-    // const dateFromString = new Date(date)
-    // let newDate = new Date(dateFromString.setDate(dateFromString.getDate() + 1))
     const newSubmittedShifts = new SubmittedShifts({
         user: req.user._id, submittedShiftsArray, date
 
@@ -13,6 +11,16 @@ const submitShifts = asyncHandler(async (req, res) => {
     const createdSubmittedShifts = await newSubmittedShifts.save()
     res.status(201).json(createdSubmittedShifts)
 
+})
+
+const getOneShiftsByDate = asyncHandler(async(req,res)=>{
+    const submittedShifts = await SubmittedShifts.find({user:req.user._id, date:req.params.date})
+    if(submittedShifts){
+        res.status(201).json(submittedShifts[0])
+    }else{
+        res.status(404)
+        throw Error('Shifts dosent found')
+    }
 })
 
 const updateShifts = asyncHandler(async (req, res) => {
@@ -45,7 +53,6 @@ const getAllSubmittedShiftsByDate = asyncHandler(async (req, res) => {
             let key = new Date(submitShifts[0].submittedShiftsArray[i].date).getDate() +'/'+ (new Date(submitShifts[0].submittedShiftsArray[i].date).getMonth()+1) 
             scheduleOptions.options.push([key,options])
         } 
-        // console.log(scheduleOptions);
         res.status(201).json(scheduleOptions)     
     } else { 
         res.status(404)
@@ -56,5 +63,6 @@ const getAllSubmittedShiftsByDate = asyncHandler(async (req, res) => {
 export {
     submitShifts,
     updateShifts,
-    getAllSubmittedShiftsByDate
+    getAllSubmittedShiftsByDate,
+    getOneShiftsByDate
 } 

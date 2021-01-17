@@ -5,9 +5,10 @@ import {
     userLoginReducer, userRegisterReducer, userDetailsReducer,
     userUpdateProfileReducer, userListReducer, userDeleteReducer, userUpdateReducer
 } from './reducers/userReducers.js'
-import { submitShiftsReducer,updateSubmittedShiftsReducer,getAllSubmittedShiftsByDateReducer } from './reducers/submittedShiftsReducer.js'
+import { submitShiftsReducer,updateSubmittedShiftsReducer,getAllSubmittedShiftsByDateReducer, getOneSubmittedShiftsByDateReducer } from './reducers/submittedShiftsReducer.js'
 import { workerTeamsReducer } from './reducers/workerTeamsReducer.js';
-import { postScheduleReducer,updateScheduleReducer } from './reducers/scheduleReducers.js';
+import { postTemporaryScheduleReducer,updatedTempShiftsReducer
+    ,updateScheduleReducer,getSchedulesReducer, getInProgressScheduleReducer,postScheduleReducer,updateTemporaryScheduleReducer } from './reducers/scheduleReducers.js';
 import { updateDateDaysReducer, getShiftsDateDaysReducer } from './reducers/dateDaysReducers.js';
 
 
@@ -15,31 +16,34 @@ const reducer = combineReducers({
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
     userDetails: userDetailsReducer,
-    userUpdateProfile: userUpdateProfileReducer,
+    userUpdateProfile: userUpdateProfileReducer, 
     userList: userListReducer,
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
     submitShifts: submitShiftsReducer,
+    getOneSubmittedShiftsByDate:getOneSubmittedShiftsByDateReducer,
     updateSubmittedShifts:updateSubmittedShiftsReducer,
     getAllSubmittedShiftsByDate:getAllSubmittedShiftsByDateReducer,
     shiftsDateDays:getShiftsDateDaysReducer, 
     updateDateDays:updateDateDaysReducer,
-    workerTeams:workerTeamsReducer,
+    workerTeams:workerTeamsReducer, 
+    getSchedules:getSchedulesReducer,
+    getInProgressSchedule:getInProgressScheduleReducer,
     postSchedule:postScheduleReducer, 
-    updateSchedule:updateScheduleReducer
+    updateSchedule:updateScheduleReducer,
+    postTemporarySchedule:postTemporaryScheduleReducer,
+    updateTemporarySchedule:updateTemporaryScheduleReducer,
+    updatedTempShifts:updatedTempShiftsReducer
 }) 
  
 const userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
 
-    const submittedshiftsFromStorage = localStorage.getItem('submittedshifts')
-    ? JSON.parse(localStorage.getItem('submittedshifts'))
-    : null
+   
 
 const initialState = {
     userLogin: { userInfo: userInfoFromStorage },
-    submitShifts:{submittedShifts:submittedshiftsFromStorage}
 } 
 
 const middleware = [thunk]

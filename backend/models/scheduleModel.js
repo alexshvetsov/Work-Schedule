@@ -10,10 +10,11 @@ const scheduleSchema = mongoose.Schema({
     done: { type: Boolean, required: true, default: false },
     shifts: [
         {
+            _id: false,
             morning: [{type:String, required: false}],
             afternoon: [{type:String, required: false}],
             evening: [{type:String, required: false}],
-            trainings: [{type:String, required: false}],
+            trainings: [{type:String, required: false}], 
         }
     ]
 

@@ -3,7 +3,8 @@ import {
     GET_DATE_DAYS_REQUEST, GET_DATE_DAYS_SUCCESS, GET_DATE_DAYS_FAIL
 } from '../constants/dateDaysConstants.js'
 import axios from 'axios';
-import { getAllSubmittedShiftsByDateAction } from './submitShiftsActions.js'
+import { getAllSubmittedShiftsByDateAction, getOneSubmittedShiftsByDateAction } from './submitShiftsActions.js'
+import { getInProgressScheduleAction } from './scheduleActions.js';
 
 
 export const updateDateDaysAction = (dateDays) => async (dispatch, getState) => {
@@ -20,6 +21,14 @@ export const updateDateDaysAction = (dateDays) => async (dispatch, getState) => 
         const { data } = await axios.post(`/api/dateDays`, dateDays, config)
         dispatch({ type: UPDATE_DATE_DAYS_SUCCESS, payload: data })
         dispatch({ type: GET_DATE_DAYS_SUCCESS, payload: data })
+        if (userInfo.isAdmin) {
+            dispatch(getAllSubmittedShiftsByDateAction(data.date))
+            dispatch(getInProgressScheduleAction(data.date,data.daysAmount)) 
+        }
+        if (userInfo.name) { 
+            dispatch(getOneSubmittedShiftsByDateAction(data.date))
+
+        }
     } catch (error) {
         dispatch({
             type: UPDATE_DATE_DAYS_FAIL,
@@ -41,10 +50,12 @@ export const getDateDaysAction = () => async (dispatch, getState) => {
         const { data } = await axios.get('/api/datedays', config)
         dispatch({ type: GET_DATE_DAYS_SUCCESS, payload: data })
         if (userInfo.isAdmin) {
-            
-           dispatch(getAllSubmittedShiftsByDateAction(data.date))
+            dispatch(getAllSubmittedShiftsByDateAction(data.date))
+            dispatch(getInProgressScheduleAction(data.date,data.daysAmount)) 
+        }
+        if (userInfo.name) { 
+            dispatch(getOneSubmittedShiftsByDateAction(data.date))
 
-            //פה לכניס את הקריאה לשרת שיביא את כל המשמרות 
         }
     } catch (error) {
         dispatch({

@@ -19,6 +19,7 @@ const App = () => {
           <Route path='/register' component={RegisterScreen} />
           <Route path='/submitshifts' component={SubmitShiftsScreen} />
           <Route path='/admin/setshifts' component={ShiftsPanelScreen} />
+          <Route path='/page/:pageNumber' component={HomeScreen}/> 
           <Route path='/' component={HomeScreen} exact/>
         </Container>
       </main>

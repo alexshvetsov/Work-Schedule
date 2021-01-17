@@ -6,6 +6,10 @@
   align-self:center 
 }
 
+.flex{
+  display: flex;
+}
+
 main{
     min-height: 80vh;
 }

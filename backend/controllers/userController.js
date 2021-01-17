@@ -115,8 +115,6 @@ const getUserById = asyncHandler(async (req, res) => {
 //update user /api/users/:id put private/ADMIN
 const updateUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
-    console.log(user)
-    console.log(req.params.name)
     if (user) {
         user.name = req.body.name || user.name
         user.email = req.body.email || user.email
