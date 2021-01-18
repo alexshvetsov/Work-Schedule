@@ -5,7 +5,6 @@ const getSchedules = asyncHandler(async (req, res) => {
 
     const pageSize = 1;
     const page = Number(req.query.pageNumber) || 1
-console.log(page);
     const count = await Schedule.countDocuments({}) 
     const schedules = await Schedule.find({})
         .limit(pageSize)
@@ -67,7 +66,6 @@ const postSchedule = asyncHandler(async (req, res) => {
 })
 
 const updateSchedule = asyncHandler(async (req, res) => {
-    console.log(req.params.id);
     let shifts = req.body;
     const submittedSchedule = await Schedule.findById(req.params.id)
     if (submittedSchedule) {

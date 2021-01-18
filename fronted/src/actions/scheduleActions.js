@@ -140,7 +140,7 @@ export const updateTemporaryScheduleAction = (shifts, date) => async (dispatch, 
                 Authorization: `Bearer ${userInfo.token}`
             }
         } 
-        const { data } = await axios.put(`/api/schedule/progression/${date}`, shifts, config)
+        await axios.put(`/api/schedule/progression/${date}`, shifts, config)
         dispatch({ type: UPDATE_TEMPORARY_SCHEDULE_BY_DATE_SUCCESS, })
     } catch (error) {
         dispatch({

@@ -33,8 +33,12 @@ export const login = (email, password) => async (dispatch) => {
     }
 }
 
-export const register = (name, email, password) => async (dispatch) => {
+export const register = (name, email, password, isAdmin) => async (dispatch) => {
     try {
+        console.log(name);
+        console.log(password);
+        console.log(email);
+        console.log(isAdmin);
         dispatch({
             type: USER_REGISTER_REQUEST
         })
@@ -42,16 +46,13 @@ export const register = (name, email, password) => async (dispatch) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-        }
-        const { data } = await axios.post('/api/users', { name, email, password }, config)
+        } 
+        const { data } = await axios.post('/api/users', { name, email, password, isAdmin }, config)
 
         dispatch({
             type: USER_REGISTER_SUCCESS, payload: data
         })
-        dispatch({
-            type: USER_LOGIN_SUCCESS, payload: data
-        })
-        localStorage.setItem('userInfo', JSON.stringify(data))
+
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,

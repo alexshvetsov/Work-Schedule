@@ -6,6 +6,8 @@ import Header from './components/Header';
 import HomeScreen from './screens/HomeScreen';
 import SubmitShiftsScreen from './screens/SubmitShiftsScreen';
 import ShiftsPanelScreen from './screens/ShiftsPanelScreen';
+import Sidebar from './components/Sidebar.js';
+import UserEditScreen from './screens/UserEditScreen';
 
 
 
@@ -14,11 +16,13 @@ const App = () => {
     <Router>
       <Header/>
       <main className='py-3'>
-      <Container>
+      <Sidebar xs={2}/>   
+      <Container xs={10}>
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/submitshifts' component={SubmitShiftsScreen} />
-          <Route path='/admin/setshifts' component={ShiftsPanelScreen} />
+          <Route path='/admin/shifts' component={ShiftsPanelScreen} />
+          <Route path='/workers' component={UserEditScreen} />
           <Route path='/page/:pageNumber' component={HomeScreen}/> 
           <Route path='/' component={HomeScreen} exact/>
         </Container>

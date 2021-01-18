@@ -62,8 +62,8 @@ const ShiftsMaker = () => {
 
     const setOptionsTraining = () => {
         let options = []
-        for (let i = 0; i < submittedShiftsByDate.options[1][1].length; i++) {
-            options.push(submittedShiftsByDate.options[1][1][i][0])
+        for (let i = 0; i < submittedShiftsByDate.options[0][1].length; i++) {
+            options.push(submittedShiftsByDate.options[0][1][i][0])
         }
         return options
     }

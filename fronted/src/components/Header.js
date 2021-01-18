@@ -18,7 +18,7 @@ const Header = () => {
     }
     return (
         <header>
-            <Navbar bg="primary" variant="dark" collapseOnSelect expand="lg">
+            <Navbar bg="primary" variant="dark" collapseOnSelect expand="lg" className='header'>
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand >Work-Schedule</Navbar.Brand>
@@ -30,20 +30,16 @@ const Header = () => {
                             {userInfo && (
                                 <Button variant="danger" size="sm" onClick={logoutHandler} className='mr-3'>התנתק</Button>
                             )}
-                            {userInfo && userInfo.isAdmin && <LinkContainer to='/admin/setshifts'>
-                                <Nav.Link >הכן משמרות</Nav.Link>
-                            </LinkContainer>}
+                         
                             {userInfo && (<Navbar.Text style={{ 'display': 'flex' }}>
                                 <span style={{ 'margin': 'auto' }}> {userInfo.name}</span>
                             </Navbar.Text>
                             )}
 
                             {!userInfo && <LinkContainer to='/login'>
-                                <Nav.Link ><i className='fas fa-user pr-2'></i>Sign in</Nav.Link>
+                                <Nav.Link >התחבר<i className='fas fa-user pl-2'></i></Nav.Link>
                             </LinkContainer>}
-                            {!userInfo && <LinkContainer to='/register'>
-                                <Nav.Link ><i className='fas fa-user pr-2'></i>Register</Nav.Link>
-                            </LinkContainer>}
+                         
                         </Nav>
 
                     </Navbar.Collapse>

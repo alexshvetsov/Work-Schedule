@@ -29,7 +29,6 @@ const HomeScreen = ({match}) => {
     const { schedules, pages, page  } = getSchedules;
 
     useEffect(() => {
-        console.log( match.params.pageNumber);
             dispatch(getAllSchedulesAction(pageNumber))
     }, [dispatch,pageNumber])
 
