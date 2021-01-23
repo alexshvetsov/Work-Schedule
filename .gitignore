@@ -11,7 +11,7 @@ progress
 /coverage
 
 # production
-/frontend/build
+/fronted/build
 
 # misc
 .DS_Store
