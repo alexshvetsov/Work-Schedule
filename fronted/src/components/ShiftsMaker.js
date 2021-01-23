@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Row, Modal, Button, Form, DropdownButton, Dropdown } from 'react-bootstrap'
+import { Table, Row, Modal, Button, Form, DropdownButton, Dropdown, Spinner } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
 import "react-datepicker/dist/react-datepicker.css";
 import uuid from 'react-uuid'
 import { updateDateDaysAction, getDateDaysAction } from '../actions/dateDaysActions';
 import { postScheduleAction, updateScheduleAction, postTemporaryScheduleAction, updateTemporaryScheduleAction } from '../actions/scheduleActions';
+import Loader from '../components/Loader';
+
 import { UPDATE_TEMP_SHIFTS_ARRAY } from '../constants/scheduleConstants';
 
 const ShiftsMaker = () => {
@@ -17,6 +19,15 @@ const ShiftsMaker = () => {
     // const userLogin = useSelector(state => state.userLogin);
     // const { userInfo } = userLogin;
 
+    const updateSchedule = useSelector(state => state.updateSchedule);
+    const { loading: loadingUpdateSchedule } = updateSchedule;
+
+    const postTemporarySchedule = useSelector(state => state.postTemporarySchedule);
+    const { loading: loadingPostTemporarySchedule } = postTemporarySchedule;
+
+    const updateTemporarySchedule = useSelector(state => state.updateTemporarySchedule);
+    const { loading: loadingUpdateTemporarySchedule } = updateTemporarySchedule;
+ 
     const getAllSubmittedShiftsByDate = useSelector(state => state.getAllSubmittedShiftsByDate)
     const { submittedShiftsByDate } = getAllSubmittedShiftsByDate
 
@@ -84,8 +95,8 @@ const ShiftsMaker = () => {
 
 
     useEffect(() => {
-        if(schedule && schedule.done){
-            setDisableSaveButton(true) 
+        if (schedule && schedule.done) {
+            setDisableSaveButton(true)
 
         }
         if (schedule && schedule.shifts) {
@@ -112,14 +123,14 @@ const ShiftsMaker = () => {
     const postDoneSchedule = () => {
         if (!schedule || !schedule._id) {
             dispatch(postScheduleAction({ shifts, dateState }))
-            setDisableSaveButton(true) 
+            setDisableSaveButton(true)
         } else {
-            setDisableSaveButton(true) 
+            setDisableSaveButton(true)
             dispatch(updateScheduleAction(shifts, schedule._id))
         }
     }
 
-    const postTemporarySchedule = () => {
+    const postUpdateTemporarySchedule = () => {
         if (!schedule) {
             dispatch(postTemporaryScheduleAction({ shifts, dateState }))
         } else {
@@ -258,13 +269,16 @@ const ShiftsMaker = () => {
             }
 
             <Button variant="success" className="mr-3" onClick={postDoneSchedule}>
-                שלח סידור חדש
-                </Button>
-            <Button variant="success" className="" onClick={postTemporarySchedule} disabled={disableSaveButton}>
+              שלח סידור חדש
+            </Button>
+            <Button variant="success" className="" onClick={postUpdateTemporarySchedule} disabled={disableSaveButton}>
                 שמור סידור
                 </Button>
+                {(loadingUpdateSchedule || loadingPostTemporarySchedule || loadingUpdateTemporarySchedule) ? <div className='spinner'><Spinner className='align-self'  animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner></div> : null}
         </>
- 
+
     )
 }
 

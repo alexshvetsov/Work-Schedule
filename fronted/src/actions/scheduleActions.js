@@ -100,7 +100,7 @@ export const updateScheduleAction = (shifts, id) => async (dispatch, getState) =
     }
 
 
-}
+} 
 
 
 export const postTemporaryScheduleAction = (schedule) => async (dispatch, getState) => {

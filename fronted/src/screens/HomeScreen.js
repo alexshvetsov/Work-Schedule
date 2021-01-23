@@ -94,8 +94,8 @@ const HomeScreen = ({match}) => {
                                     <p>{day.morning[0]}</p>
                                     <p>{day.morning[1]}</p>
                                 </td>
-                                <th>{`${index + 1}/${month + 1}/${year}`}</th>
-                                <th>{setDay(index + 1)}</th>
+                                <td>{`${index + 1}/${month + 1}/${year}`}</td>
+                                <td>{setDay(index + 1)}</td>
                             </tr>
                         ))
                     }

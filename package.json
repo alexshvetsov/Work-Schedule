@@ -12,7 +12,7 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
-    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix fronted && npm run build --prefix frontend"
+    "heroku-postbuild":"NPM_CONFIG_PRODUCTION=false npm install --prefix fronted && npm run build --prefix fronted"
   },
   "author": "Alex Shvetsov",
   "license": "ISC",
