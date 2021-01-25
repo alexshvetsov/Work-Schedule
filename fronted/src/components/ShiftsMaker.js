@@ -61,16 +61,16 @@ const ShiftsMaker = () => {
         return days[dayWord]
     }
 
-    const setOptions = (day,secondWorker, shift) => {
+    const setOptions = (day, secondWorker, shift, shiftKey) => {
         let options = []
-        console.log(day);
-        console.log(shift);
+        if (shifts[day][shiftKey].length ===0) return options
         submittedShiftsByDate.options[day][1].map((workerOption, index) => (
             submittedShiftsByDate.options[day][1][index][1].includes(shift) || submittedShiftsByDate.options[day][1][index][1] === 'הכול' ?
-            options.push(submittedShiftsByDate.options[day][1][index][0]) : null)
+                options.push(submittedShiftsByDate.options[day][1][index][0]) : null)
         )
-        if(shifts[day][shift][secondWorker]){
-            console.log(shifts[day][shift][secondWorker]);
+        if (shifts[day][shiftKey][secondWorker]) {
+            options= options.filter(worker=> worker !==shifts[day][shiftKey][secondWorker])
+            console.log(options);
         }
         // for (let i = 0; i < submittedShiftsByDate.options[day][1].length; i++) {
         //     if (submittedShiftsByDate.options[day][1][i][1].includes(shift) || submittedShiftsByDate.options[day][1][i][1] === 'הכול') {
@@ -243,31 +243,31 @@ const ShiftsMaker = () => {
                                 <td className='shiftTD'>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].evening[0] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'evening', 0)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 0,'לילה' ).map((worker) => <option key={'evening' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 1, 'לילה', 'evening').map((worker) => <option key={'evening' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].evening[1] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'evening', 1)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 1,'לילה' ).map((worker) => <option key={index + 'evening' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 0, 'לילה', 'evening').map((worker) => <option key={index + 'evening' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                 </td>
                                 <td className='shiftTD'>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].afternoon[0] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'afternoon', 0)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 0,'צהריים' ).map((worker) => <option key={'afternoon' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 1, 'צהריים', 'afternoon').map((worker) => <option key={'afternoon' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].afternoon[1] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'afternoon', 1)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index,1,'צהריים' ).map((worker) => <option key={index + 'afternoon' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 0, 'צהריים', 'afternoon').map((worker) => <option key={index + 'afternoon' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                 </td>
                                 <td className='shiftTD'>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].morning[0] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'morning', 0)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 0,'בוקר' ).map((worker) => <option key={'morning' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 1, 'בוקר', 'morning').map((worker) => <option key={'morning' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].morning[1] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'morning', 1)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 1,'בוקר' ).map((worker) => <option key={index + 'morning' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 0, 'בוקר', 'morning').map((worker) => <option key={index + 'morning' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                 </td>
                                 <th>{`${new Date(dateState).getDate() + index}/${new Date(dateState).getMonth() + 1}`}</th>
