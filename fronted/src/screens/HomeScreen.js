@@ -1,13 +1,13 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Table, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import uuid from 'react-uuid'
 import { getAllSchedulesAction } from '../actions/scheduleActions';
 import Paginate from '../components/Paginate';
 
 
-const HomeScreen = ({match}) => {
+const HomeScreen = ({ match }) => {
 
     const month = new Date().getMonth()
     const year = new Date().getFullYear()
@@ -17,20 +17,22 @@ const HomeScreen = ({match}) => {
 
     const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
     const setDay = (dayNumber) => {
-        const dayWord = new Date(Number(year), Number(month), Number(dayNumber)).getDay()
-        return days[dayWord]
+        if (schedules[0]) {
+            const dayWord = new Date(Number(new Date(schedules[0].date).getFullYear()), Number(new Date(schedules[0].date).getMonth()), Number(dayNumber)).getDay()
+            return days[dayWord]
+        }else return null
     }
 
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
 
-    
+
     const getSchedules = useSelector(state => state.getSchedules);
-    const { schedules, pages, page  } = getSchedules;
+    const { schedules, pages, page } = getSchedules;
 
     useEffect(() => {
-            dispatch(getAllSchedulesAction(pageNumber))
-    }, [dispatch,pageNumber])
+        dispatch(getAllSchedulesAction(pageNumber))
+    }, [dispatch, pageNumber])
 
 
     return (
@@ -76,7 +78,7 @@ const HomeScreen = ({match}) => {
                         <td></td>
                         <td></td>
                     </tr>
-                    {schedules && 
+                    {schedules &&
                         schedules[0].shifts.map((day, index) => (
                             <tr key={uuid()}>
                                 <td>
@@ -94,18 +96,17 @@ const HomeScreen = ({match}) => {
                                     <p>{day.morning[0]}</p>
                                     <p>{day.morning[1]}</p>
                                 </td>
-                                <td>{`${index + 1}/${month + 1}/${year}`}</td>
-                                <td>{setDay(index + 1)}</td>
+                                <td>{`${new Date(schedules[0].date).getDate()+index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
+                                <td>{setDay(new Date(schedules[0].date).getDate()+index)}</td>
                             </tr>
                         ))
                     }
                 </tbody>
             </Table>
-            <Paginate pages={pages} page={page}  /> 
+            <Paginate pages={pages} page={page} />
 
         </>
     )
 }
 
 export default HomeScreen
- 

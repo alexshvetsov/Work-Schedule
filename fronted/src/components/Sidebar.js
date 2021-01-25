@@ -17,7 +17,7 @@ const Sidebar = () => {
         <>
             <Button size="sm" className='toggle-sidebar' variant='outline-success' onClick={() => { setShow(!show) }}>☰</Button>
             <Nav className={`sidebar d-none d-md-block bg-light sidebar rtl ${show ? '' : 'hide'}`}
-                active-sidebarKey="/home"
+                active-sidebarkey="/home"
                 onSelect={selectedKey => setUrl(selectedKey)}
             >
                 <div className="sidebar-sticky rtl"></div>

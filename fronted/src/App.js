@@ -8,6 +8,7 @@ import SubmitShiftsScreen from './screens/SubmitShiftsScreen';
 import ShiftsPanelScreen from './screens/ShiftsPanelScreen';
 import Sidebar from './components/Sidebar.js';
 import UserEditScreen from './screens/UserEditScreen';
+import MyShiftsScreen from './screens/MyShiftsScreen';
 
 
 
@@ -20,6 +21,7 @@ const App = () => {
       <Container xs={10}>
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
+          <Route path='/myshifts' component={MyShiftsScreen} />
           <Route path='/submitshifts' component={SubmitShiftsScreen} />
           <Route path='/admin/shifts' component={ShiftsPanelScreen} />
           <Route path='/workers' component={UserEditScreen} />

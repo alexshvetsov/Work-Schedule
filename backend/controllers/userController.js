@@ -137,6 +137,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
 // delete user /api/users/:id  private/ADMIN
 const deleteUser = asyncHandler(async (req, res) => {
+    console.log('r');
     const user = await User.findById(req.params.id)
     if (user) {
         user.remove()

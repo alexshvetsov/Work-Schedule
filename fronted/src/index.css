@@ -58,6 +58,10 @@ thead{
 
 }
 
+.my-shifts{
+  text-align: center;
+}
+
 .spinner{
   height: 100vh;
   width: 100%;

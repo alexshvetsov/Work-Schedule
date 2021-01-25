@@ -68,11 +68,11 @@ const UserEditScreen = ({ history }) => {
                                         <Button variant='light' className='btn-sm' onClick={() => setEditUser(editUser === user._id ? '' : user._id)}>
                                             <i className='fas fa-edit'></i>
                                         </Button>
-                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler()}>
-                                            <i className='fas fa-trash'></i>
+                                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(user._id)}>
+                                            <i className='fas fa-trash'></i> 
                                         </Button>
                                     </td>
-
+                                    
                                     <td>{user.isAdmin ?
                                         (<i className='fas fa-check' style={{ color: 'green' }}></i>) :
                                         (<i className='fas fa-times' style={{ color: 'red' }}></i>)}

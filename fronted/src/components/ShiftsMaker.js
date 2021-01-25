@@ -27,7 +27,7 @@ const ShiftsMaker = () => {
 
     const updateTemporarySchedule = useSelector(state => state.updateTemporarySchedule);
     const { loading: loadingUpdateTemporarySchedule } = updateTemporarySchedule;
- 
+
     const getAllSubmittedShiftsByDate = useSelector(state => state.getAllSubmittedShiftsByDate)
     const { submittedShiftsByDate } = getAllSubmittedShiftsByDate
 
@@ -61,13 +61,22 @@ const ShiftsMaker = () => {
         return days[dayWord]
     }
 
-    const setOptions = (day, shift) => {
+    const setOptions = (day,secondWorker, shift) => {
         let options = []
-        for (let i = 0; i < submittedShiftsByDate.options[day][1].length; i++) {
-            if (submittedShiftsByDate.options[day][1][i][1].includes(shift) || submittedShiftsByDate.options[day][1][i][1] === 'הכול') {
-                options.push(submittedShiftsByDate.options[day][1][i][0])
-            }
+        console.log(day);
+        console.log(shift);
+        submittedShiftsByDate.options[day][1].map((workerOption, index) => (
+            submittedShiftsByDate.options[day][1][index][1].includes(shift) || submittedShiftsByDate.options[day][1][index][1] === 'הכול' ?
+            options.push(submittedShiftsByDate.options[day][1][index][0]) : null)
+        )
+        if(shifts[day][shift][secondWorker]){
+            console.log(shifts[day][shift][secondWorker]);
         }
+        // for (let i = 0; i < submittedShiftsByDate.options[day][1].length; i++) {
+        //     if (submittedShiftsByDate.options[day][1][i][1].includes(shift) || submittedShiftsByDate.options[day][1][i][1] === 'הכול') {
+        //         options.push(submittedShiftsByDate.options[day][1][i][0])
+        //     }
+        // }
         return options
     }
 
@@ -85,6 +94,8 @@ const ShiftsMaker = () => {
             tempShifts[day].trainings.splice(tempShifts[day].trainings.findIndex(workerArray => workerArray === worker), 1)
             : tempShifts[day].trainings.push(worker)
         setShifts(tempShifts)
+        dispatch({ type: UPDATE_TEMP_SHIFTS_ARRAY, payload: tempShifts })
+
     }
 
     const sumbitForm = (e) => {
@@ -232,31 +243,31 @@ const ShiftsMaker = () => {
                                 <td className='shiftTD'>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].evening[0] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'evening', 0)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 'לילה').map((worker) => <option key={'evening' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 0,'לילה' ).map((worker) => <option key={'evening' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].evening[1] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'evening', 1)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 'לילה').map((worker) => <option key={index + 'evening' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 1,'לילה' ).map((worker) => <option key={index + 'evening' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                 </td>
                                 <td className='shiftTD'>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].afternoon[0] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'afternoon', 0)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 'צהריים').map((worker) => <option key={'afternoon' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 0,'צהריים' ).map((worker) => <option key={'afternoon' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].afternoon[1] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'afternoon', 1)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 'צהריים').map((worker) => <option key={index + 'afternoon' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index,1,'צהריים' ).map((worker) => <option key={index + 'afternoon' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                 </td>
                                 <td className='shiftTD'>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].morning[0] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'morning', 0)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 'בוקר').map((worker) => <option key={'morning' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 0,'בוקר' ).map((worker) => <option key={'morning' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                     <Form.Control className='rtl' as='select' defaultValue={shifts[index].morning[1] || 'worker'} onChange={(e) => setWorker(e.target.value, index, 'morning', 1)}>
                                         <option value={'worker'}>בחר עובד </option>
-                                        {setOptions(index, 'בוקר').map((worker) => <option key={index + 'morning' + worker} value={worker}>{worker} </option>)}
+                                        {setOptions(index, 1,'בוקר' ).map((worker) => <option key={index + 'morning' + worker} value={worker}>{worker} </option>)}
                                     </Form.Control>
                                 </td>
                                 <th>{`${new Date(dateState).getDate() + index}/${new Date(dateState).getMonth() + 1}`}</th>
@@ -269,14 +280,14 @@ const ShiftsMaker = () => {
             }
 
             <Button variant="success" className="mr-3" onClick={postDoneSchedule}>
-              שלח סידור חדש
+                שלח סידור חדש
             </Button>
             <Button variant="success" className="" onClick={postUpdateTemporarySchedule} disabled={disableSaveButton}>
                 שמור סידור
                 </Button>
-                {(loadingUpdateSchedule || loadingPostTemporarySchedule || loadingUpdateTemporarySchedule) ? <div className='spinner'><Spinner className='align-self'  animation="border" role="status">
-                    <span className="sr-only">Loading...</span>
-                </Spinner></div> : null}
+            {(loadingUpdateSchedule || loadingPostTemporarySchedule || loadingUpdateTemporarySchedule) ? <div className='spinner'><Spinner className='align-self' animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </Spinner></div> : null}
         </>
 
     )
