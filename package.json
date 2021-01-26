@@ -2,9 +2,7 @@
   "name": "work-schedule",
   "version": "1.0.0",
   "description": "",
-  "engines": {
-    "node": "14.x"
-  },
+ 
   "type": "module",
   "main": "server.js",
   "scripts": {

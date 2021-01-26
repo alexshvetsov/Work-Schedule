@@ -6,7 +6,6 @@ import Header from './components/Header';
 import HomeScreen from './screens/HomeScreen';
 import SubmitShiftsScreen from './screens/SubmitShiftsScreen';
 import ShiftsPanelScreen from './screens/ShiftsPanelScreen';
-import Sidebar from './components/Sidebar.js';
 import UserEditScreen from './screens/UserEditScreen';
 import MyShiftsScreen from './screens/MyShiftsScreen';
 
