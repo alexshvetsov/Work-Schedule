@@ -18,7 +18,7 @@ const getSchedules = asyncHandler(async (req, res) => {
 })
 
 const getInProgressSchedule = asyncHandler(async (req, res) => {
-
+console.log('f');
     const schedule = await Schedule.findOne({ done: false, date: req.params.date });
     const doneSchedule = await Schedule.findOne({ done: true, date: req.params.date });
     if (schedule && schedule.shifts.length === Number(req.params.daysamount)) {

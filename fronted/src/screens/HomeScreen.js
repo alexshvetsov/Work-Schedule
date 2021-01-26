@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Table, Row } from 'react-bootstrap'
+import { Table, Row, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import uuid from 'react-uuid'
@@ -20,7 +20,7 @@ const HomeScreen = ({ match }) => {
         if (schedules[0]) {
             const dayWord = new Date(Number(new Date(schedules[0].date).getFullYear()), Number(new Date(schedules[0].date).getMonth()), Number(dayNumber)).getDay()
             return days[dayWord]
-        }else return null
+        } else return null
     }
 
     const userLogin = useSelector(state => state.userLogin);
@@ -29,6 +29,23 @@ const HomeScreen = ({ match }) => {
 
     const getSchedules = useSelector(state => state.getSchedules);
     const { schedules, pages, page } = getSchedules;
+
+    const downloadJson = (objectData) => {
+        let filename = "export.json";
+        let contentType = "application/json;charset=utf-8;";
+        if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+            var blob = new Blob([decodeURIComponent(encodeURI(JSON.stringify(objectData)))], { type: contentType });
+            navigator.msSaveOrOpenBlob(blob, filename);
+        } else {
+            var a = document.createElement('a');
+            a.download = filename;
+            a.href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(objectData));
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    }
 
     useEffect(() => {
         dispatch(getAllSchedulesAction(pageNumber))
@@ -96,13 +113,14 @@ const HomeScreen = ({ match }) => {
                                     <p>{day.morning[0]}</p>
                                     <p>{day.morning[1]}</p>
                                 </td>
-                                <td>{`${new Date(schedules[0].date).getDate()+index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
-                                <td>{setDay(new Date(schedules[0].date).getDate()+index)}</td>
+                                <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
+                                <td>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
                             </tr>
                         ))
                     }
                 </tbody>
             </Table>
+            {(userInfo && userInfo.isAdmin) && <Button onClick={() => downloadJson(schedules[0].shifts)}>הורד סידור</Button>}
             <Paginate pages={pages} page={page} />
 
         </>

@@ -24,6 +24,10 @@ main{
   height: 10Vh;
 }
 
+.overflow-y{
+  overflow-y: hidden; 
+}
+
 .center{
   text-align: center;
 }
@@ -62,6 +66,8 @@ thead{
   text-align: center;
 }
 
+
+
 .spinner{
   height: 100vh;
   width: 100%;
@@ -81,30 +87,28 @@ thead{
 }
 
 .sidebar {
-  border: 1px solid blue;
   position: absolute;
-  top: calc(10vh);
+  background-color:#6495ED  !important;
+  top:calc(10vh);
   bottom: 0; 
-  right: -100%;
-  max-height: 100vh ;
-  z-index: 100;
+  right:0;
+  height: 90vh ;
   padding-top: 48px; 
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   transition: all 0.5s ;
+  color: black;  
 }
 .sidebar > .nav-item{
   margin-right:0px;
   padding-left:1rem; 
 }
 
+
 .sidebar > .nav-item> .nav-link{
   text-align: right ;
 }
 .sidebar > .nav-item:hover{
-  background: rgba(243, 244, 246,1)
-}
-
-.toggle-sidebar{
+  background: rgba(243, 244, 246,.2)
 }
 
 #sidebar-wrapper{
@@ -127,5 +131,7 @@ thead{
 }
 
 .hide{
-  right:0;
-}
+  background-color: white !important;
+  height:0;
+  overflow: hidden;
+} 

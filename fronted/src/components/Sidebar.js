@@ -16,39 +16,39 @@ const Sidebar = () => {
     return (
         <>
             <Button size="sm" className='toggle-sidebar' variant='outline-success' onClick={() => { setShow(!show) }}>☰</Button>
-            <Nav className={`sidebar d-none d-md-block bg-light sidebar rtl ${show ? '' : 'hide'}`}
+            <Nav className={`sidebar d-none d-sm-block  rtl ${show ? '' : 'hide'}`}
                 active-sidebarkey="/home"
                 onSelect={selectedKey => setUrl(selectedKey)}
             >
-                <div className="sidebar-sticky rtl"></div>
-                <Nav.Item  className={url === '/' ? 'active-sidebar  mt-3' : ' mt-3'}>
-                    <LinkContainer  to='/'>
+                <div className={`sidebar-sticky rtl ${show ? '' : 'hide'}`}></div>
+                <Nav.Item className={url === '/' ? 'active-sidebar ' : ''}>
+                    <LinkContainer to='/'>
                         <Nav.Link className='link' > דף הבית</Nav.Link>
                     </LinkContainer>
                 </Nav.Item>
                 <Nav.Item className={url === '/myshifts' ? 'active-sidebar' : ''}>
-                    <LinkContainer  to={userInfo ? '/myshifts' : '/login?redirect=myshifts'}>
+                    <LinkContainer to={userInfo ? '/myshifts' : '/login?redirect=myshifts'}>
                         <Nav.Link className='link' > המשמרות שלי</Nav.Link>
                     </LinkContainer>
                 </Nav.Item>
                 <Nav.Item className={url === '/submitshifts' ? 'active-sidebar' : ''}>
-                    <LinkContainer  to={userInfo ? '/submitshifts' : '/login?redirect=submitshifts'}>
+                    <LinkContainer to={userInfo ? '/submitshifts' : '/login?redirect=submitshifts'}>
                         <Nav.Link className='link' > הגש משמרות</Nav.Link>
                     </LinkContainer>
                 </Nav.Item>
                 {(userInfo && userInfo.isAdmin) ? <Nav.Link className='right green'>פאנל ניהול</Nav.Link> : ''}
                 {(userInfo && userInfo.isAdmin) ?
                     < >
-                        <Nav.Item className={url === '/admin/shifts' ? 'active-sidebar' : ''}> 
-                            <LinkContainer  to={'/admin/shifts'}>
+                        <Nav.Item className={url === '/admin/shifts' ? 'active-sidebar' : ''}>
+                            <LinkContainer to={'/admin/shifts'}>
                                 <Nav.Link className='link' > הכן סידור</Nav.Link>
                             </LinkContainer>
                         </Nav.Item>
                         <Nav.Item className={url === '/workers' ? 'active-sidebar' : ''}>
-                            <LinkContainer  to={'/workers'}>
+                            <LinkContainer to={'/workers'}>
                                 <Nav.Link className='link' > עובדים</Nav.Link>
                             </LinkContainer>
-                        </Nav.Item>  
+                        </Nav.Item>
                     </>
                     : ''}
 

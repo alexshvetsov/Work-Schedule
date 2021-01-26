@@ -72,13 +72,10 @@ const SubmitShiftsScreen = ({ history }) => {
     const options = ['הכול', 'כלום', 'בוקר', 'צהריים', 'לילה', 'בוקר / צהריים', 'בוקר / לילה', 'צהריים / לילה']
     return (
         <>
-            {showAlert && <Alert className='flex' variant='success'>
-                <p className='align-self'>!!!המשמרות הוגשו בהצלחה</p>
-            </Alert>
-            }
+
             { submittedShiftsArray && <Table striped bordered hover responsive className='table-sm'>
                 <thead>
-                    <tr> 
+                    <tr>
                         <th>משמרות</th>
                         <th>תאריך</th>
                     </tr>
@@ -100,6 +97,10 @@ const SubmitShiftsScreen = ({ history }) => {
             <Button variant="success" size="lg" block onClick={submitForm}>
                 הגש משמרות
             </Button>
+            {showAlert && <Alert className='flex' variant='success'>
+                <p className='align-self'>!!!המשמרות הוגשו בהצלחה</p>
+            </Alert>
+            }
         </>
     )
 }

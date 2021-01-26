@@ -54,6 +54,8 @@ const ShiftsMaker = () => {
         worker !== 'worker' ? tempShifts[day][shift][index] = worker : tempShifts[day][shift][index] = ''
         setShifts(tempShifts)
         dispatch({ type: UPDATE_TEMP_SHIFTS_ARRAY, payload: tempShifts })
+
+
     }
 
     const setDay = (dayNumber) => {
@@ -63,20 +65,34 @@ const ShiftsMaker = () => {
 
     const setOptions = (day, secondWorker, shift, shiftKey) => {
         let options = []
-        if (shifts[day][shiftKey].length ===0) return options
         submittedShiftsByDate.options[day][1].map((workerOption, index) => (
             submittedShiftsByDate.options[day][1][index][1].includes(shift) || submittedShiftsByDate.options[day][1][index][1] === 'הכול' ?
                 options.push(submittedShiftsByDate.options[day][1][index][0]) : null)
         )
         if (shifts[day][shiftKey][secondWorker]) {
-            options= options.filter(worker=> worker !==shifts[day][shiftKey][secondWorker])
-            console.log(options);
+            options = options.filter(worker => worker !== shifts[day][shiftKey][secondWorker])
         }
-        // for (let i = 0; i < submittedShiftsByDate.options[day][1].length; i++) {
-        //     if (submittedShiftsByDate.options[day][1][i][1].includes(shift) || submittedShiftsByDate.options[day][1][i][1] === 'הכול') {
-        //         options.push(submittedShiftsByDate.options[day][1][i][0])
-        //     }
-        // }
+
+        if (day > 0) {
+            if (shiftKey === 'morning') {
+                shifts[day - 1].evening.map(worker => options = options.filter(workerFilter => workerFilter !== worker))
+                shifts[day].afternoon.map(worker => options = options.filter(workerFilter => workerFilter !== worker))
+            }
+            if (shiftKey === 'afternoon') {
+                shifts[day].morning.map(worker => options = options.filter(workerFilter => workerFilter !== worker))
+                shifts[day].evening.map(worker => options = options.filter(workerFilter => workerFilter !== worker))
+            }
+            if (shiftKey === 'evening') {
+                shifts[day].afternoon.map(worker => options = options.filter(workerFilter => workerFilter !== worker))
+               if( day < shifts.length-1) shifts[day + 1].morning.map(worker => options = options.filter(workerFilter => workerFilter !== worker)) 
+            }
+        }
+
+
+        //         console.log(day);
+        // console.log(secondWorker);
+        // console.log(shift);
+        // console.log(shiftKey);
         return options
     }
 

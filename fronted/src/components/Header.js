@@ -19,21 +19,21 @@ const Header = () => {
         dispatch(logout())
     }
     return (
-        <header>
-            <Navbar bg="primary" variant="dark" collapseOnSelect expand="lg" className='header'>
+        <header className='header'>
+            <Navbar className='header' bg="primary" variant="dark" >
                 <Container>
                     <LinkContainer to='/'>
-                        <Navbar.Brand >Work-Schedule</Navbar.Brand>
+                        <Navbar.Brand >Work-Schedule</Navbar.Brand> 
                     </LinkContainer>
 
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}
                     {/* <Navbar.Collapse id="basic-navbar-nav"> */}
                         <Nav className="ml-auto">
                             {userInfo && (
                                 <Button variant="danger" size="sm" onClick={logoutHandler} className='mr-3'>התנתק</Button>
                             )}
 
-                            {userInfo && (<Navbar.Text style={{ 'display': 'flex' }}>
+                            {userInfo && (<Navbar.Text  className='mr-2' style={{ 'display': 'flex' }}>
                                 <span style={{ 'margin': 'auto' }}> {userInfo.name}</span>
                             </Navbar.Text>
                             )}
@@ -46,6 +46,7 @@ const Header = () => {
 
                     {/* </Navbar.Collapse> */}
                 </Container>
+                
                 <Sidebar />
 
             </Navbar >
