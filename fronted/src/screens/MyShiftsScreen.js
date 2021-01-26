@@ -3,8 +3,6 @@ import { Table, Form, Button, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import uuid from 'react-uuid'
 import { getAllSchedulesAction } from '../actions/scheduleActions';
-import jsPDF from "jspdf";
-import "jspdf-autotable";
 
 
 const MyShiftsScreen = ({ history }) => {

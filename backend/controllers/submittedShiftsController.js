@@ -44,7 +44,7 @@ const getAllSubmittedShiftsByDate = asyncHandler(async (req, res) => {
     }
     const submitShifts = await SubmittedShifts.find({ date: req.params.date }).populate('user')
     submitShifts.forEach(submitShift=>scheduleOptions.submitted.push(submitShift.user.name)) 
-    if (submitShifts) {
+    if (submitShifts.length>0) {
         for (let i = 0; i < submitShifts[0].submittedShiftsArray.length; i++) {
             let options = []
             for (let j = 0; j < submitShifts.length; j++) { 

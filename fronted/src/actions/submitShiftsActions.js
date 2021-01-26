@@ -71,6 +71,7 @@ export const getAllSubmittedShiftsByDateAction = (date) => async (dispatch, getS
                 Authorization: `Bearer ${userInfo.token}`
             }
         } 
+        console.log(date);
         const { data } = await axios.get(`/api/submittedShifts/date/${date}`, config)
         dispatch({ type: GET_ALL_SUBMITTED_SHIFTS_BY_DATE_SUCCESS, payload:data })
         
