@@ -81,7 +81,8 @@ thead{
 }
 
 .sidebar {
-  position: fixed;
+  border: 1px solid blue;
+  position: absolute;
   top: calc(10vh);
   bottom: 0; 
   right: -100%;
@@ -104,11 +105,6 @@ thead{
 }
 
 .toggle-sidebar{
-  position: fixed;
-  top: calc(10vh + 5px);
-  right: 1rem; 
-  z-index: 101;
-  margin-bottom: 2rem;
 }
 
 #sidebar-wrapper{

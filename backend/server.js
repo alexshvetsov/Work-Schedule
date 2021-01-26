@@ -23,6 +23,8 @@ app.use('/api/datedays', dateDaysRoutes);
 const __dirname = path.resolve()
 
 
+
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '/fronted/build')))
 

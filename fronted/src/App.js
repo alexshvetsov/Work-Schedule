@@ -14,11 +14,10 @@ import MyShiftsScreen from './screens/MyShiftsScreen';
 
 const App = () => {
   return (
-    <Router>
-      <Header/>
+    <Router >
+      <Header/> 
       <main className='py-3'>
-      <Sidebar xs={2}/>   
-      <Container xs={10}>
+      <Container>
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/myshifts' component={MyShiftsScreen} />
