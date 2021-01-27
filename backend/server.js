@@ -22,20 +22,18 @@ app.use('/api/datedays', dateDaysRoutes);
 
 const __dirname = path.resolve()
 
-// if (process.env.NODE_ENV === 'production') {
-//     app.use(express.static(path.join(__dirname, '/fronted/build')))
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/fronted/build')))
 
-//     app.get('*', (req, res) => res.sendFile(path.resolve(__dirname), 'fronted', 'build', 'index.html'))
-// } else {
-//     app.get('/', (req, res) => {
-//         res.send('API is running...')
-//     })
-// }
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, 'fronted', 'build', 'index.html'))
+} else {
+    app.get('/', (req, res) => {
+        res.send('API is running...')
+    })
+}
 
-if (process.env.NODE_ENV === "production") { 
-    app.use(express.static("fronted/build")); 
-    app.get("*", (req, res) => { req.sendFile(path.resolve(__dirname, "fronted", "build", "index.html")); }); 
-} 
+
+
 
 app.use(notFound)
 
