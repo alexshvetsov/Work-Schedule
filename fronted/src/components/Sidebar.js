@@ -15,13 +15,13 @@ const Sidebar = () => {
 
     return (
         <>
-            <Button size="sm" className='toggle-sidebar' variant='outline-success' onClick={() => { setShow(!show) }}>☰</Button>
+            <Button size="sm" className='toggle-sidebar d-none d-sm-block' variant='outline-success' onClick={() => { setShow(!show) }}>☰</Button>
             <Nav className={`sidebar d-none d-sm-block  rtl ${show ? '' : 'hide'}`}
-                active-sidebarkey="/home"
+                active-sidebarkey="/home" 
                 onSelect={selectedKey => setUrl(selectedKey)}
             >
                 <div className={`sidebar-sticky rtl ${show ? '' : 'hide'}`}></div>
-                <Nav.Item className={url === '/' ? 'active-sidebar ' : ''}>
+                <Nav.Item className={url === '/' ? 'active-sidebar  d-sm-inline-block' : ''}>
                     <LinkContainer to='/'>
                         <Nav.Link className='link' > דף הבית</Nav.Link>
                     </LinkContainer>

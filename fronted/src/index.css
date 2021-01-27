@@ -131,6 +131,7 @@ thead{
 }
 
 .hide{
+  z-index: -1;
   background-color: white !important;
   height:0;
   overflow: hidden;
