@@ -5,6 +5,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listUsers, deleteUser } from '../actions/userActions';
 import NewUserForm from '../components/NewUserForm.js';
+import DemoAlert from '../components/DemoAlert.js';
 
 
 const UserEditScreen = ({ history }) => {
@@ -12,6 +13,8 @@ const UserEditScreen = ({ history }) => {
     const dispatch = useDispatch()
 
     const [editUser, setEditUser] = useState('')
+    const [showDemoAlert, setShowDemoAlert] = useState(false)
+
     const userList = useSelector(state => state.userList)
     const { loading, error, users } = userList
 
@@ -40,6 +43,11 @@ const UserEditScreen = ({ history }) => {
     }, [dispatch, history, userInfo, successUpdate, successDelete, successRegister])
 
     const deleteHandler = (id) => {
+        if(userInfo.name ==='demo'){
+            setShowDemoAlert(true)
+            setTimeout(()=>setShowDemoAlert(false),5000)
+            return
+        }
         if (window.confirm('Are you sure ')) {
             dispatch(deleteUser(id))
         }
@@ -47,6 +55,8 @@ const UserEditScreen = ({ history }) => {
 
     return (
         <>
+        {showDemoAlert && <DemoAlert/>}
+
             <h1 className="right">משתמשים</h1>
             <NewUserForm editUser={editUser} />
             {

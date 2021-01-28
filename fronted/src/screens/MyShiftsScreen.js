@@ -42,6 +42,8 @@ const MyShiftsScreen = ({ history }) => {
         return shift ? `${shift ? shift : ''} ${secondShift ? ',' + secondShift : ''}` : 'אין משמרת'
     }
 
+    
+
     const exportPDF = () => {
         if (!schedules) {
             return
@@ -51,7 +53,7 @@ const MyShiftsScreen = ({ history }) => {
 
     return (
         <>
-            <Table className='my-shifts' striped bordered hover size="sm">
+            <Table className="right" striped bordered hover responsive size="sm" variant="dark">
                 <thead>
                     <tr>
                         <th>משמרת</th>
@@ -66,7 +68,10 @@ const MyShiftsScreen = ({ history }) => {
                                 <td>
                                     {checkShift(day)}
                                 </td>
-                                <td>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
+                                <td className={
+                                setDay(new Date(schedules[0].date).getDate() + index)==='שישי' ||  setDay(new Date(schedules[0].date).getDate() + index)==='שבת'?
+                                'green':''
+                            }>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
                                 <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
 
                             </tr>

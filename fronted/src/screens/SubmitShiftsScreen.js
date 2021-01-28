@@ -3,6 +3,7 @@ import { Table, Form, Button, Alert } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { submitShiftsAction, updateSubmittedShiftsAction } from '../actions/submitShiftsActions.js'
 import { getDateDaysAction } from '../actions/dateDaysActions';
+import DemoAlert from '../components/DemoAlert.js';
 
 
 
@@ -11,6 +12,10 @@ const SubmitShiftsScreen = ({ history }) => {
     const dispatch = useDispatch();
 
     const [showAlert, setShowAlert] = useState(false)
+    const [showDemoAlert, setShowDemoAlert] = useState(false)
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
 
     const shiftsDateDays = useSelector(state => state.shiftsDateDays)
     const { date, daysAmount } = shiftsDateDays
@@ -52,6 +57,12 @@ const SubmitShiftsScreen = ({ history }) => {
     }
 
     const submitForm = () => {
+        if(userInfo.name ==='demo'){
+            setShowDemoAlert(true)
+            setTimeout(()=>setShowDemoAlert(false),5000)
+            return
+        }
+
         setShowAlert(true)
         if (!submittedShiftsByDate) {
             dispatch(submitShiftsAction({ date, submittedShiftsArray }))
@@ -79,8 +90,9 @@ const SubmitShiftsScreen = ({ history }) => {
     const options = ['הכול', 'כלום', 'בוקר', 'צהריים', 'לילה', 'בוקר / צהריים', 'בוקר / לילה', 'צהריים / לילה']
     return (
         <>
+        {showDemoAlert && <DemoAlert/>}
+            { submittedShiftsArray &&<Table className="right" striped bordered hover responsive size="sm" variant="dark">
 
-            { submittedShiftsArray && <Table  striped bordered hover responsive size='sm'>
                 <thead>
                     <tr>
                         <th>משמרות</th>
@@ -106,13 +118,14 @@ const SubmitShiftsScreen = ({ history }) => {
                 </tbody>
 
             </Table>}
-            <Button variant="success" size="lg" block onClick={submitForm}>
-                הגש משמרות
-            </Button>
             {showAlert && <Alert className='flex right rtl' variant='success'>
                 <p className='align-self right'>!!!המשמרות הוגשו בהצלחה</p>
             </Alert>
             }
+            <Button variant="success" size="lg" block onClick={submitForm}>
+                הגש משמרות
+            </Button>
+            
         </>
     )
 }

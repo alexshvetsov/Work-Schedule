@@ -5,19 +5,22 @@ import "react-datepicker/dist/react-datepicker.css";
 import uuid from 'react-uuid'
 import { updateDateDaysAction, getDateDaysAction } from '../actions/dateDaysActions';
 import { postScheduleAction, updateScheduleAction, postTemporaryScheduleAction, updateTemporaryScheduleAction } from '../actions/scheduleActions';
-import Loader from '../components/Loader';
+import DemoAlert from '../components/DemoAlert.js';
+
 
 import { UPDATE_TEMP_SHIFTS_ARRAY } from '../constants/scheduleConstants';
 
 const ShiftsMaker = () => {
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
+    const [showDemoAlert, setShowDemoAlert] = useState(false)
+
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    // const userLogin = useSelector(state => state.userLogin);
-    // const { userInfo } = userLogin;
+    const userLogin = useSelector(state => state.userLogin);
+    const { userInfo } = userLogin;
 
     const updateSchedule = useSelector(state => state.updateSchedule);
     const { loading: loadingUpdateSchedule } = updateSchedule;
@@ -109,6 +112,11 @@ const ShiftsMaker = () => {
     }
 
     const sumbitForm = (e) => {
+        if(userInfo.name ==='demo'){
+            setShowDemoAlert(true)
+            setTimeout(()=>{setShowDemoAlert(false); setShow(false)},5000)
+            return
+        }
         e.preventDefault()
         dispatch(updateDateDaysAction({ startDate, daysAmount }))
         handleClose()
@@ -142,6 +150,11 @@ const ShiftsMaker = () => {
     }, [dispatch, daysAmountState, shifts.length, dateState, schedule])
 
     const postDoneSchedule = () => {
+        if(userInfo.name ==='demo'){
+            setShowDemoAlert(true)
+            setTimeout(()=>setShowDemoAlert(false),5000)
+            return
+        }
         if (!schedule || !schedule._id) {
             dispatch(postScheduleAction({ shifts, dateState }))
             setDisableSaveButton(true)
@@ -152,6 +165,11 @@ const ShiftsMaker = () => {
     }
 
     const postUpdateTemporarySchedule = () => {
+        if(userInfo.name ==='demo'){
+            setShowDemoAlert(true)
+            setTimeout(()=>setShowDemoAlert(false),5000)
+            return
+        }
         if (!schedule) {
             dispatch(postTemporaryScheduleAction({ shifts, dateState }))
         } else {
@@ -162,6 +180,8 @@ const ShiftsMaker = () => {
 
     return (
         <>
+        {showDemoAlert && <DemoAlert/>}
+        
             <Row style={{ 'direction': 'rtl' }}>
                 <Button variant="success" className="my-3" onClick={handleShow}>
                     עדכן ימים ותאריך להכנת סידור עבודה

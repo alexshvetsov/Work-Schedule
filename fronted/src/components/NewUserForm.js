@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Form, Button, InputGroup, FormControl } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {  register, updateUser } from '../actions/userActions';
+import DemoAlert from '../components/DemoAlert.js';
+
 
 
 const NewUserForm = ({editUser}) => {
@@ -10,6 +12,10 @@ const NewUserForm = ({editUser}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isAdmin, setIsAdmin] = useState(false)
+    const [showDemoAlert, setShowDemoAlert] = useState(false)
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     const userList = useSelector(state => state.userList)
     const {  users } = userList
@@ -21,7 +27,11 @@ const NewUserForm = ({editUser}) => {
 
     const submitHandler = (e) => {
         e.preventDefault(); 
-
+        if(userInfo.name ==='demo'){
+            setShowDemoAlert(true)
+            setTimeout(()=>setShowDemoAlert(false),5000)
+            return
+        }
         if(!editUser){
             dispatch(register(name, email, password, isAdmin))
 
@@ -50,6 +60,8 @@ const NewUserForm = ({editUser}) => {
 
     return (
         <>
+        {showDemoAlert && <DemoAlert/>}
+
             <Form inline className='rtl' onSubmit={submitHandler}>
                 <Form.Label htmlFor="inlineFormInputName2" srOnly>
                     Name
