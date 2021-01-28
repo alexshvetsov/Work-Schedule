@@ -66,13 +66,16 @@ const HomeScreen = ({ match }) => {
                     הגשת משמרות
                     </Link>
             </Row>
-            <Table striped bordered hover responsive className='table-sm'>
+            <Table className="right" striped bordered hover responsive size="sm" variant="dark">
                 <thead>
                     <tr>
                         <th>רענון</th>
-                        <th>משמרת לילה 22:00-6:00</th>
-                        <th>משמרת צהריים 14:00-22:00</th>
-                        <th>משמרת בוקר 06:00-14:00:00</th>
+                        <th>  22:00-6:00</th>
+                        <th>משמרת לילה </th>
+                        <th>  14:00-22:00</th>
+                        <th>משמרת צהריים </th>
+                        <th>  06:00-14:00:00</th>
+                        <th>משמרת בוקר </th>
                         <th>תאריך</th>
                         <th>יום בשבוע</th>
                     </tr>
@@ -80,41 +83,32 @@ const HomeScreen = ({ match }) => {
                 <tbody>
                     <tr>
                         <td></td>
-                        <td className='shiftTD'>
-                            <p>אחמ"ש</p>
-                            <p>מאבטח 2</p>
-                        </td>
-                        <td className='shiftTD'>
-                            <p>אחמ"ש</p>
-                            <p>מאבטח 2</p>
-                        </td>
-                        <td className='shiftTD'>
-                            <p>אחמ"ש</p>
-                            <p>מאבטח 2</p>
-                        </td>
+                            <td>מאבטח 2</td>
+                            <td>אחמ"ש</td>
+                            <td>מאבטח 2</td>
+                            <td>אחמ"ש</td>
+                            <td>מאבטח 2</td>
+                            <td>אחמ"ש</td>
                         <td></td>
                         <td></td>
                     </tr>
                     {schedules &&
                         schedules[0].shifts.map((day, index) => (
-                            <tr key={uuid()}>
+                            <tr key={uuid()}  >
                                 <td>
-                                    {day.trainings.map((p, index) => <p key={uuid()} className='ml-3' style={{ 'display': 'inline-block' }}>{index > 0 ? ',' : null} {p}</p>)}
+                                    {day.trainings.map((p, index) => <p key={uuid()} className='m-0' style={{ 'display': 'block' }}>{index > 0 ? ',' : null} {p?p.split(' ')[0]:''}</p>)}
                                 </td>
-                                <td className='shiftTD'>
-                                    <p>{day.evening[0] || ''}</p>
-                                    <p>{day.evening[1] || ''}</p>
-                                </td>
-                                <td className='shiftTD'>
-                                    <p>{day.afternoon[0]}</p>
-                                    <p>{day.afternoon[1]}</p>
-                                </td>
-                                <td className='shiftTD'>
-                                    <p>{day.morning[0]}</p>
-                                    <p>{day.morning[1]}</p>
-                                </td>
+                                    <td>{day.evening[0]?day.evening[0].split(' ')[0]:''  || ''}</td>
+                                    <td>{day.evening[1]?day.evening[0].split(' ')[0]:''  || ''}</td>
+                                    <td>{day.afternoon[0]?day.afternoon[0].split(' ')[0]:'' || ''}</td>
+                                    <td>{day.afternoon[1]?day.afternoon[0].split(' ')[0]:'' || ''}</td>
+                                    <td>{day.morning[0]?day.morning[0].split(' ')[0]:'' || ''}</td>
+                                    <td>{day.morning[1]?day.morning[0].split(' ')[0]:'' || ''}</td>
                                 <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
-                                <td>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
+                                <td className={
+                                setDay(new Date(schedules[0].date).getDate() + index)==='שישי' ||  setDay(new Date(schedules[0].date).getDate() + index)==='שבת'?
+                                'green':''
+                            }>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
                             </tr>
                         ))
                     }

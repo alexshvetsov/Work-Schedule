@@ -31,31 +31,28 @@ const LoginScreen = ({ history, location }) => {
 
 
     return (
-        <div>
-            <FormContainer>
-                <h1>Sign In</h1>
+        <div className='rtl right'>
+            <FormContainer className='rtl right'>
+                <h1>התחבר</h1>
                 {error && <Message variant='danger'>{error}</Message>}
                 {loading && < Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='email'>
-                        <Form.Label>Email Adress</Form.Label>
+                        <Form.Label>כתובת מייל</Form.Label>
                         <Form.Control type='email'
-                            placeholder='Enter Email'
+                            placeholder='הכנס כתובת אימייל'
                             value={email} onChange={(e) => { setEmail(e.target.value) }}>
                         </Form.Control>
                     </Form.Group>
                     <Form.Group controlId='password'>
-                        <Form.Label>Your Password</Form.Label>
+                        <Form.Label>סיסמה</Form.Label>
                         <Form.Control type='password'
-                            placeholder='Enter password'
+                            placeholder='הכנס סיסמה'
                             value={password} onChange={(e) => { setPassword(e.target.value) }}>
                         </Form.Control>
                     </Form.Group>
-                    <Button type='submit' varient='primary'>Sign In</Button>
+                    <Button type='submit' varient='primary'>התבחר</Button>
                 </Form>
-                <Row className='py-3'>
-                    <Col>New Customer? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link></Col>
-                </Row>
             </FormContainer>
         </div>
     )

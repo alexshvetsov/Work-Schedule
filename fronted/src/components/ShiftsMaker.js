@@ -84,15 +84,9 @@ const ShiftsMaker = () => {
             }
             if (shiftKey === 'evening') {
                 shifts[day].afternoon.map(worker => options = options.filter(workerFilter => workerFilter !== worker))
-               if( day < shifts.length-1) shifts[day + 1].morning.map(worker => options = options.filter(workerFilter => workerFilter !== worker)) 
+                if (day < shifts.length - 1) shifts[day + 1].morning.map(worker => options = options.filter(workerFilter => workerFilter !== worker))
             }
         }
-
-
-        //         console.log(day);
-        // console.log(secondWorker);
-        // console.log(shift);
-        // console.log(shiftKey);
         return options
     }
 
@@ -173,9 +167,9 @@ const ShiftsMaker = () => {
                     עדכן ימים ותאריך להכנת סידור עבודה
                  </Button>
 
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modal heading</Modal.Title>
+                <Modal className='right rtl' show={show} onHide={handleClose}>
+                    <Modal.Header >
+                        <Modal.Title>עדכן בקשה להגשת משמרות </Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
@@ -183,7 +177,7 @@ const ShiftsMaker = () => {
                             <Form.Group controlId='startDate'>
                                 <Form.Label>בחר תאריך</Form.Label>
                                 <Form.Control type='date'
-
+                                    className='right rtl'
                                     value={startDate} onChange={(e) => setStartDate(e.target.value)}>
                                 </Form.Control>
                             </Form.Group>
@@ -200,10 +194,10 @@ const ShiftsMaker = () => {
 
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
-                            Close
+                            סגור
                     </Button>
                         <Button variant="primary" onClick={(e) => sumbitForm(e)}>
-                            Save Changes
+                            הגש
                     </Button>
                     </Modal.Footer>
                 </Modal>

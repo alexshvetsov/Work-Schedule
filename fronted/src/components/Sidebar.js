@@ -21,7 +21,7 @@ const Sidebar = () => {
                 onSelect={selectedKey => setUrl(selectedKey)}
             >
                 <div className={`sidebar-sticky rtl ${show ? '' : 'hide'}`}></div>
-                <Nav.Item className={url === '/' ? 'active-sidebar  d-sm-inline-block' : ''}>
+                <Nav.Item className={url === '/' ? 'active-sidebar' : ''}>
                     <LinkContainer to='/'>
                         <Nav.Link className='link' > דף הבית</Nav.Link>
                     </LinkContainer>

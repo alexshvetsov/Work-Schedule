@@ -1,27 +1,33 @@
-/* main{
-color: #fff;
-background-color: black;
-} */
+main{
+color: #000000 !important;
+background-color: #ecc19c;
+}
 
 .rtl{
   direction: rtl;
 }
 
+.btn-success{
+  background-color:  #1e847f!important;
+  
+}
 .align-self{
   align-self:center 
 }
 
 .flex{
-  display: flex;
+  display: flex; 
 }
 
 main{
-    min-height: 80vh;
-    /* background-color: black; */
+  min-height: 90vh;
+  /* background-color: black; */
 }
 
 .header{
   height: 10Vh;
+  color: #000000 !important;
+  background-color: #1e847f !important;
 }
 
 .overflow-y{
@@ -52,10 +58,10 @@ thead{
 
 .link:hover{ 
   text-decoration: none;
-}
+} 
 
 .green{
-  background-color: #4bbf73;
+  background-color:  #1e847f!important;
 }
 .active-sidebar{
   background-color: #d3d3d3; 
@@ -88,7 +94,7 @@ thead{
 
 .sidebar {
   position: absolute;
-  background-color:#6495ED  !important;
+  background-color:#000000  !important;
   top:calc(10vh);
   bottom: 0; 
   right:0;

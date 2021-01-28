@@ -36,7 +36,14 @@ const SubmitShiftsScreen = ({ history }) => {
         }
     } else {
         submittedShiftsArray = submittedShiftsByDate.submittedShiftsArray
+    }
 
+    const days = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
+    const setDay = (dayNumber) => {
+        if (date) {
+            const dayWord = new Date(Number(new Date(date).getFullYear()), Number(new Date(date).getMonth()), Number(dayNumber)).getDay()
+            return days[dayWord]
+        } else return null
     }
 
 
@@ -73,23 +80,28 @@ const SubmitShiftsScreen = ({ history }) => {
     return (
         <>
 
-            { submittedShiftsArray && <Table striped bordered hover responsive className='table-sm'>
+            { submittedShiftsArray && <Table  striped bordered hover responsive size='sm'>
                 <thead>
                     <tr>
                         <th>משמרות</th>
                         <th>תאריך</th>
+                        <th>יום</th> 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className='right'> 
                     {submittedShiftsArray.map((submittedShift, index) => (
-                        <tr key={submittedShift.date}>
+                        <tr className={
+                            setDay(new Date(date).getDate() + index)==='שישי' ||  setDay(new Date(date).getDate() + index)==='שבת'?
+                            'green':''
+                        } key={submittedShift.date}>
                             <td>
                                 <Form.Control className='rtl' as='select' defaultValue={submittedShiftsArray[index].submittedShift} onChange={(e) => setShifts(e, index)}>
                                     {options.map((option) => <option key={option} value={option}>{option} </option>)}
                                 </Form.Control>
                             </td>
                             <td>{`${new Date(submittedShift.date).getDate()}/${new Date(submittedShift.date).getMonth() + 1}`}</td>
-                        </tr>
+                            <td >{setDay(new Date(date).getDate() + index)}</td>
+                        </tr> 
                     ))}
                 </tbody>
 
@@ -97,8 +109,8 @@ const SubmitShiftsScreen = ({ history }) => {
             <Button variant="success" size="lg" block onClick={submitForm}>
                 הגש משמרות
             </Button>
-            {showAlert && <Alert className='flex' variant='success'>
-                <p className='align-self'>!!!המשמרות הוגשו בהצלחה</p>
+            {showAlert && <Alert className='flex right rtl' variant='success'>
+                <p className='align-self right'>!!!המשמרות הוגשו בהצלחה</p>
             </Alert>
             }
         </>
