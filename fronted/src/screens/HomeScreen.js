@@ -99,11 +99,11 @@ const HomeScreen = ({ match }) => {
                                     {day.trainings.map((p, index) => <p key={uuid()} className='m-0' style={{ 'display': 'block' }}>{index > 0 ? ',' : null} {p?p.split(' ')[0]:''}</p>)}
                                 </td>
                                     <td>{day.evening[0]?day.evening[0].split(' ')[0]:''  || ''}</td>
-                                    <td>{day.evening[1]?day.evening[0].split(' ')[0]:''  || ''}</td>
+                                    <td>{day.evening[1]?day.evening[1].split(' ')[0]:''  || ''}</td>
                                     <td>{day.afternoon[0]?day.afternoon[0].split(' ')[0]:'' || ''}</td>
-                                    <td>{day.afternoon[1]?day.afternoon[0].split(' ')[0]:'' || ''}</td>
+                                    <td>{day.afternoon[1]?day.afternoon[1].split(' ')[0]:'' || ''}</td>
                                     <td>{day.morning[0]?day.morning[0].split(' ')[0]:'' || ''}</td>
-                                    <td>{day.morning[1]?day.morning[0].split(' ')[0]:'' || ''}</td>
+                                    <td>{day.morning[1]?day.morning[1].split(' ')[0]:'' || ''}</td>
                                 <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
                                 <td className={
                                 setDay(new Date(schedules[0].date).getDate() + index)==='שישי' ||  setDay(new Date(schedules[0].date).getDate() + index)==='שבת'?
@@ -114,7 +114,7 @@ const HomeScreen = ({ match }) => {
                     }
                 </tbody>
             </Table>
-            {(userInfo && userInfo.isAdmin) && <Button onClick={() => downloadJson(schedules[0].shifts)}>הורד סידור</Button>}
+            {(userInfo && userInfo.isAdmin) && <Button className='m-3' onClick={() => downloadJson(schedules[0].shifts)}>הורד סידור</Button>}
             <Paginate pages={pages} page={page} />
 
         </>

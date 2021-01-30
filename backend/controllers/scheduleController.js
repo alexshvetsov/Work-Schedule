@@ -5,8 +5,8 @@ const getSchedules = asyncHandler(async (req, res) => {
 
     const pageSize = 1;
     const page = Number(req.query.pageNumber) || 1
-    const count = await Schedule.countDocuments({}) 
-    const schedules = await Schedule.find({})
+    const count = await Schedule.countDocuments({done:true}) 
+    const schedules = await Schedule.find({done:true}).sort({date: -1})
         .limit(pageSize)
         .skip(pageSize * (page - 1))
 

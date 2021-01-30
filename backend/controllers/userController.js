@@ -26,13 +26,13 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
     const { name, email, password, isAdmin } = req.body
     const userExists = await User.findOne({ email })
-   
+
     if (userExists) {
         res.status(400)
         throw new Error('User already exists')
     }
 
-    const user = await User.create({ 
+    const user = await User.create({
         email, name, password, isAdmin
     })
 
@@ -96,7 +96,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 // get all users /api/users  private/ADMIN
 const getUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({});
+    const users = await User.find({ deleted: false }).select('-password');
     res.json(users)
 })
 
@@ -137,14 +137,23 @@ const updateUser = asyncHandler(async (req, res) => {
 
 // delete user /api/users/:id  private/ADMIN
 const deleteUser = asyncHandler(async (req, res) => {
-    console.log('r');
+  
     const user = await User.findById(req.params.id)
     if (user) {
-        user.remove()
+        
+        if (req.params.id.toString() === req.user._id.toString()) {
+            res.status(404)
+            throw new Error('Cannot delete yourself')
+        }
+        user.password = '12345'
+        user.deleted = true
+        await user.save()
         res.json({ message: 'User removed' })
     } else {
-        res.status(404)
-        throw new Error('User not found')
+ 
+            res.status(404)
+            throw new Error('User not found')
+        
     }
 })
 

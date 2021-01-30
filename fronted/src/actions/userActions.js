@@ -46,7 +46,7 @@ export const register = (name, email, password, isAdmin) => async (dispatch) => 
             headers: {
                 'Content-Type': 'application/json',
             },
-        } 
+        }
         const { data } = await axios.post('/api/users', { name, email, password, isAdmin }, config)
 
         dispatch({
@@ -145,6 +145,7 @@ export const listUsers = () => async (dispatch, getState) => {
         }
 
         const { data } = await axios.get(`/api/users`, config)
+        console.log(data);
         dispatch({
             type: USER_LIST_SUCCESS, payload: data
         })
