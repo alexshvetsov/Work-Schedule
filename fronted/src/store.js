@@ -46,10 +46,11 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('theme'))
     : null
  
-   
+   console.log(themeFromStorage.isDark);
+   console.log(isDark);
 const initialState = {
     userLogin: { userInfo: userInfoFromStorage },
-    theme: { isDark: themeFromStorage.isDark },
+    theme: { isDark: themeFromStorage?themeFromStorage.isDark:false},
 } 
 
 const middleware = [thunk]
