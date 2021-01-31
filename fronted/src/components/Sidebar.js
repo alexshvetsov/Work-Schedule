@@ -16,10 +16,13 @@ const Sidebar = () => {
     return (
         <>
             <Button size="sm" className='toggle-sidebar d-none d-sm-block' variant='outline-success' onClick={() => { setShow(!show) }}>☰</Button>
+            <div className={`hide-nav ${show ? ' ' : 'd-none '}`} onClick={() => { setShow(!show) }}></div>
             <Nav className={`sidebar d-none d-sm-block  rtl ${show ? '' : 'hide'}`}
-                active-sidebarkey="/home" 
+                onClick={() => { setShow(!show) }}
+                active-sidebarkey="/home"
                 onSelect={selectedKey => setUrl(selectedKey)}
             >
+
                 <div className={`sidebar-sticky rtl ${show ? '' : 'hide'}`}></div>
                 <Nav.Item className={url === '/' ? 'active-sidebar' : ''}>
                     <LinkContainer to='/'>
@@ -51,7 +54,6 @@ const Sidebar = () => {
                         </Nav.Item>
                     </>
                     : ''}
-
             </Nav>
 
 

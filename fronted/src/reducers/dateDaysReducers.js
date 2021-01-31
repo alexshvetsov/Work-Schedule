@@ -22,7 +22,7 @@ export const getShiftsDateDaysReducer = (state = { }, action) => {
         case GET_DATE_DAYS_REQUEST:
             return { loading: true }
         case GET_DATE_DAYS_SUCCESS:
-            return { loading: false, date: new Date(action.payload.date), daysAmount: action.payload.daysAmount }
+            return { loading: false,disableSubmitting:action.payload.disableSubmitting, id:action.payload._id,date: new Date(action.payload.date), daysAmount: action.payload.daysAmount }
         case GET_DATE_DAYS_FAIL:
             return { loading: false, error: action.payload }
         default:

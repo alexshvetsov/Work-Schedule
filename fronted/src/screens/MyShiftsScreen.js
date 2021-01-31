@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { Table, Form, Button, Alert } from 'react-bootstrap'
+import { Table, Form, Button, Alert, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import uuid from 'react-uuid'
+import { Link } from 'react-router-dom';
 import { getAllSchedulesAction } from '../actions/scheduleActions';
 
 
@@ -42,7 +43,7 @@ const MyShiftsScreen = ({ history }) => {
         return shift ? `${shift ? shift : ''} ${secondShift ? ',' + secondShift : ''}` : 'אין משמרת'
     }
 
-    
+
 
     const exportPDF = () => {
         if (!schedules) {
@@ -53,6 +54,14 @@ const MyShiftsScreen = ({ history }) => {
 
     return (
         <>
+            <Row style={{ 'direction': 'rtl' }}>
+                <Link
+                    className='btn btn-primary my-3'
+                    to='/'>
+                    דף הבית
+                    </Link>
+
+            </Row>
             <Table className="right" striped bordered hover responsive size="sm" variant="dark">
                 <thead>
                     <tr>
@@ -69,9 +78,9 @@ const MyShiftsScreen = ({ history }) => {
                                     {checkShift(day)}
                                 </td>
                                 <td className={
-                                setDay(new Date(schedules[0].date).getDate() + index)==='שישי' ||  setDay(new Date(schedules[0].date).getDate() + index)==='שבת'?
-                                'green':''
-                            }>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
+                                    setDay(new Date(schedules[0].date).getDate() + index) === 'שישי' || setDay(new Date(schedules[0].date).getDate() + index) === 'שבת' ?
+                                        'green' : ''
+                                }>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
                                 <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
 
                             </tr>

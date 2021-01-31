@@ -8,6 +8,10 @@ import Paginate from '../components/Paginate';
 
 
 const HomeScreen = ({ match }) => {
+    
+    const theme = useSelector(state => state.theme);
+    const { isDark } = theme;
+
 
     const month = new Date().getMonth()
     const year = new Date().getFullYear()
@@ -61,7 +65,7 @@ const HomeScreen = ({ match }) => {
                     המשמרות שלי
                     </Link>
                 <Link
-                    className='btn btn-success my-3'
+                    className={`btn my-3 btn-success ${isDark?'':'btn-success-light'}`}
                     to={userInfo ? '/submitshifts' : '/login?redirect=submitshifts'}>
                     הגשת משמרות
                     </Link>
@@ -107,7 +111,7 @@ const HomeScreen = ({ match }) => {
                                 <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
                                 <td className={
                                 setDay(new Date(schedules[0].date).getDate() + index)==='שישי' ||  setDay(new Date(schedules[0].date).getDate() + index)==='שבת'?
-                                'green':''
+                                isDark?'green':'light-green':''
                             }>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
                             </tr>
                         ))

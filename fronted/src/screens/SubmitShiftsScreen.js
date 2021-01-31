@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Form, Button, Alert } from 'react-bootstrap'
+import { Table, Form, Button, Alert, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { submitShiftsAction, updateSubmittedShiftsAction } from '../actions/submitShiftsActions.js'
 import { getDateDaysAction } from '../actions/dateDaysActions';
 import DemoAlert from '../components/DemoAlert.js';
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -18,7 +20,7 @@ const SubmitShiftsScreen = ({ history }) => {
     const { userInfo } = userLogin;
 
     const shiftsDateDays = useSelector(state => state.shiftsDateDays)
-    const { date, daysAmount } = shiftsDateDays
+    const { date, daysAmount, disableSubmitting } = shiftsDateDays
 
     const getOneSubmittedShiftsByDate = useSelector(state => state.getOneSubmittedShiftsByDate)
     const { submittedShiftsByDate } = getOneSubmittedShiftsByDate
@@ -57,9 +59,9 @@ const SubmitShiftsScreen = ({ history }) => {
     }
 
     const submitForm = () => {
-        if(userInfo.name ==='demo'){
+        if (userInfo.name === 'demo') {
             setShowDemoAlert(true)
-            setTimeout(()=>setShowDemoAlert(false),5000)
+            setTimeout(() => setShowDemoAlert(false), 5000)
             return
         }
 
@@ -90,21 +92,29 @@ const SubmitShiftsScreen = ({ history }) => {
     const options = ['הכול', 'כלום', 'בוקר', 'צהריים', 'לילה', 'בוקר / צהריים', 'בוקר / לילה', 'צהריים / לילה']
     return (
         <>
-        {showDemoAlert && <DemoAlert/>}
-            { submittedShiftsArray &&<Table className="right" striped bordered hover responsive size="sm" variant="dark">
+            {showDemoAlert && <DemoAlert />}
+            <Row style={{ 'direction': 'rtl' }}>
+                <Link
+                    className='btn btn-primary my-3'
+                    to='/'>
+                    דף הבית
+                    </Link>
+
+            </Row>
+            { submittedShiftsArray && <Table className="right" striped bordered hover responsive size="sm" variant="dark">
 
                 <thead>
                     <tr>
                         <th>משמרות</th>
                         <th>תאריך</th>
-                        <th>יום</th> 
+                        <th>יום</th>
                     </tr>
                 </thead>
-                <tbody className='right'> 
+                <tbody className='right'>
                     {submittedShiftsArray.map((submittedShift, index) => (
                         <tr className={
-                            setDay(new Date(date).getDate() + index)==='שישי' ||  setDay(new Date(date).getDate() + index)==='שבת'?
-                            'green':''
+                            setDay(new Date(date).getDate() + index) === 'שישי' || setDay(new Date(date).getDate() + index) === 'שבת' ?
+                                'green' : ''
                         } key={submittedShift.date}>
                             <td>
                                 <Form.Control className='rtl' as='select' defaultValue={submittedShiftsArray[index].submittedShift} onChange={(e) => setShifts(e, index)}>
@@ -113,7 +123,7 @@ const SubmitShiftsScreen = ({ history }) => {
                             </td>
                             <td>{`${new Date(submittedShift.date).getDate()}/${new Date(submittedShift.date).getMonth() + 1}`}</td>
                             <td >{setDay(new Date(date).getDate() + index)}</td>
-                        </tr> 
+                        </tr>
                     ))}
                 </tbody>
 
@@ -122,10 +132,14 @@ const SubmitShiftsScreen = ({ history }) => {
                 <p className='align-self right'>!!!המשמרות הוגשו בהצלחה</p>
             </Alert>
             }
-            <Button variant="success" size="lg" block onClick={submitForm}>
+              {disableSubmitting && <Alert className='flex right rtl' variant='danger'>
+                <p className='align-self right'>הזמן להגשת המשמרות פג</p>
+            </Alert>
+            }
+            <Button variant="success" size="lg" block onClick={submitForm} disabled={disableSubmitting}>
                 הגש משמרות
             </Button>
-            
+
         </>
     )
 }

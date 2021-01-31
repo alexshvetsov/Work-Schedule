@@ -4,23 +4,29 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 import Sidebar from './Sidebar.js';
-
-
 import {
     Navbar, Nav, Container,
 } from 'react-bootstrap'
+import ThemeModeButton from './ThemeModeButton';
 
 const Header = () => {
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin
+
+    const theme = useSelector(state => state.theme);
+    const { isDark } = theme;
+
     const dispatch = useDispatch()
+
+  
 
     const logoutHandler = () => {
         dispatch(logout())
     }
     return (
-        <header className='header'>
-            <Navbar className='header' bg="primary" variant="dark" >
+        <header className={`header ${isDark?'':'light-green'}`}>
+            <Navbar className={`header ${isDark?'':'light-green'}`} bg="primary" variant="dark" >
+                        <ThemeModeButton/>
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand >Work-Schedule</Navbar.Brand> 

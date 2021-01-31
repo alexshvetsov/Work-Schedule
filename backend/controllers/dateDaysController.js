@@ -22,7 +22,20 @@ const getLastDateDatys = asyncHandler(async(req,res)=>{
     }
 })
 
+const updateDateDays = asyncHandler(async (req, res) => {
+    const dateDays = await DateDays.findById(req.params.id)
+    if (dateDays) {
+        dateDays.disableSubmitting = req.body.disable
+        const updatedDateDays = await dateDays.save()
+        res.status(201).json(updatedDateDays)
+    } else {
+        res.status(404)
+        throw Error('Could not procced with this action')
+    }
+})
+
 export{
     postDateDays,
-    getLastDateDatys
+    getLastDateDatys,
+    updateDateDays
 }    

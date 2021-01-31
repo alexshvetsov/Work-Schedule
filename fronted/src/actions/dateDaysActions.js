@@ -1,6 +1,6 @@
 import {
     UPDATE_DATE_DAYS_REQUEST, UPDATE_DATE_DAYS_SUCCESS, UPDATE_DATE_DAYS_FAIL,
-    GET_DATE_DAYS_REQUEST, GET_DATE_DAYS_SUCCESS, GET_DATE_DAYS_FAIL
+    GET_DATE_DAYS_REQUEST, GET_DATE_DAYS_SUCCESS, GET_DATE_DAYS_FAIL, UPDATE_SUBMITTING_STATUS_DATE_DAYS_REQUEST
 } from '../constants/dateDaysConstants.js'
 import axios from 'axios';
 import { getAllSubmittedShiftsByDateAction, getOneSubmittedShiftsByDateAction } from './submitShiftsActions.js'
@@ -60,6 +60,39 @@ export const getDateDaysAction = () => async (dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: GET_DATE_DAYS_FAIL,
+            payload: error.response && error.response.data.message ?
+                error.response.data.message : error.response
+        })
+    }
+}
+
+
+export const updateSubmittingStatus = (disable,id) => async (dispatch, getState) => {
+    try {
+        console.log(disable);
+        const { userLogin: { userInfo } } = getState()
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const { data } = await axios.put(`/api/datedays/${id}`, {disable}, config)
+        dispatch({ type: UPDATE_DATE_DAYS_SUCCESS, payload: data })
+        dispatch({ type: GET_DATE_DAYS_SUCCESS, payload: data })
+        console.log(data);
+        if (userInfo.isAdmin) {
+            dispatch(getAllSubmittedShiftsByDateAction(data.date))
+            dispatch(getInProgressScheduleAction(data.date,data.daysAmount)) 
+        }
+        if (userInfo.name) { 
+            dispatch(getOneSubmittedShiftsByDateAction(data.date))
+
+        }
+    } catch (error) {
+        dispatch({
+            type: UPDATE_DATE_DAYS_FAIL,
             payload: error.response && error.response.data.message ?
                 error.response.data.message : error.response
         })

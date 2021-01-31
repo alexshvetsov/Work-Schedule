@@ -9,8 +9,16 @@ background-color: #ecc19c;
 
 .btn-success{
   background-color:  #1e847f!important;
-  
 }
+
+.btn-success-light{
+  background-color:  #79cbb8!important;
+}
+
+.light-theme{
+  background-color: #500472;
+}
+
 .align-self{
   align-self:center 
 }
@@ -35,7 +43,7 @@ main{
 }
 
 .center{
-  text-align: center;
+  text-align: center !important;
 }
 
 .right{
@@ -63,6 +71,12 @@ thead{
 .green{
   background-color:  #1e847f!important;
 }
+
+.light-green{
+  background-color:  #79cbb8!important;
+
+}
+
 .active-sidebar{
   background-color: #d3d3d3; 
 
@@ -117,6 +131,7 @@ thead{
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
   transition: all 0.5s ;
   color: black;  
+  z-index: 1001;
 }
 .sidebar > .nav-item{
   margin-right:0px;
@@ -150,9 +165,62 @@ thead{
   width: 100%;
 }
 
+.hide-nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, .3);
+  z-index: 100; 
+}
+
 .hide{
   z-index: -1;
   background-color: white !important;
   height:0;
   overflow: hidden;
 } 
+
+.theme_toggle_container{
+  width: 3rem;
+  height: 1.6rem;
+  background-color: white ; 
+  margin: auto;
+  border-radius: 5rem;
+  border-radius: 5rem;
+  position: relative;
+  transition:all 2s;
+  display: flex;
+  justify-content: space-around ;
+ align-content: flex-end;  
+}
+ 
+.theme_toggle_button{
+  position: absolute;
+  right:0.07rem;
+  top:0.75rem;
+  transform: translateY(-50%);
+  width: 1.5rem; 
+  height: 1.4rem;
+  border-radius: 5rem;
+  background-color: rgb(255,255,255) !important;
+  transition:all .4s;
+  
+}    
+.toggle_theme_button{ 
+  right:calc(100% - 1.53rem) !important;
+  transition:all .4s; 
+  direction: ltr  !important;
+  justify-content: flex-end !important;
+}
+
+.sun-icon{
+  color: #ebc815;
+  padding-top: 0.4rem;
+}
+
+.moon-icon{
+  color: #3686a0;  
+  padding-top: 0.4rem;
+}

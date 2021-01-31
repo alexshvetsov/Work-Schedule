@@ -9,6 +9,7 @@ import DemoAlert from '../components/DemoAlert.js';
 
 
 import { UPDATE_TEMP_SHIFTS_ARRAY } from '../constants/scheduleConstants';
+import { DisableSubmittingButton } from './DisableSubmittingButton';
 
 const ShiftsMaker = () => {
     const dispatch = useDispatch()
@@ -225,6 +226,7 @@ const ShiftsMaker = () => {
                     {`${new Date(dateState).getDate()}/${new Date(dateState).getMonth() + 1}`} - {`${new Date(dateState).getDate() + daysAmountState - 1}/${new Date(dateState).getMonth() + 1}`}
                 </h4>}
             </Row>
+                <DisableSubmittingButton/>
             {dateState && <Table striped bordered hover responsive className='table-sm'>
                 <thead>
                     <tr>

@@ -10,6 +10,7 @@ import { workerTeamsReducer } from './reducers/workerTeamsReducer.js';
 import { postTemporaryScheduleReducer,updatedTempShiftsReducer
     ,updateScheduleReducer,getSchedulesReducer, getInProgressScheduleReducer,postScheduleReducer,updateTemporaryScheduleReducer } from './reducers/scheduleReducers.js';
 import { updateDateDaysReducer, getShiftsDateDaysReducer } from './reducers/dateDaysReducers.js';
+import { themeReducer } from './reducers/themeReducers.js';
 
 
 const reducer = combineReducers({
@@ -33,17 +34,22 @@ const reducer = combineReducers({
     updateSchedule:updateScheduleReducer,
     postTemporarySchedule:postTemporaryScheduleReducer,
     updateTemporarySchedule:updateTemporaryScheduleReducer,
-    updatedTempShifts:updatedTempShiftsReducer
+    updatedTempShifts:updatedTempShiftsReducer,
+    theme:themeReducer
 }) 
  
 const userInfoFromStorage = localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo'))
     : null
 
+    const themeFromStorage = localStorage.getItem('theme')
+    ? JSON.parse(localStorage.getItem('theme'))
+    : null
+ 
    
-
 const initialState = {
     userLogin: { userInfo: userInfoFromStorage },
+    theme: { isDark: themeFromStorage.isDark },
 } 
 
 const middleware = [thunk]

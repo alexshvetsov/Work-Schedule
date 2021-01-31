@@ -7,7 +7,12 @@ const dateDaysSchema = mongoose.Schema({
         ref: 'User'
     },
     date: { type: Date, required: true }, 
-    daysAmount: { type: Number, required: true }
+    daysAmount: { type: Number, required: true },
+    disableSubmitting: { 
+        type: Boolean,
+        required: true,
+        default: false
+    },  
 }, { timeStamps: true });
 
 const DateDays = mongoose.model('DateDays', dateDaysSchema)
