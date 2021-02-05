@@ -1,6 +1,7 @@
 main{
 color: #f7fff7 !important;
 background-color: #1A535C;
+position: relative;
 }
 
 .color-dark{
@@ -239,4 +240,25 @@ thead{
 .moon-icon{
   color: #3686a0;  
   padding-top: 0.4rem;
+}
+
+.options-table{
+  background-color: #ffffff ;
+  position: sticky;
+  top: 1rem;
+  margin-bottom: 2rem;
+  z-index: 100;
+}
+.options-table>thead{
+  display: block;
+}
+.options-table>tbody{
+  display: block;
+  max-height: 15rem  !important;
+  overflow-y: auto;    /* Trigger vertical scroll    */
+  overflow-x: hidden;
+
+} 
+.options-table>tbody>tr:nth-of-type(even){
+  background-color: #f5f54545;
 }

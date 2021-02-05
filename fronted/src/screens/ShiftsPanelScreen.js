@@ -3,10 +3,13 @@ import TeamMaker from '../components/TeamMaker'
 import { Col, Row,Container } from 'react-bootstrap'
 import ShiftsMaker from '../components/ShiftsMaker'
 import ShiftsCount from '../components/ShiftsCount.js';
+import { AllOptions } from '../components/AllOptions';
 
 const ShiftsPanelScreen = () => {
-    return (
+    return (<>
         <Container fluid>
+        <AllOptions/>
+
             <Row>
                 <Col xs='2'>
                     <TeamMaker />
@@ -17,6 +20,7 @@ const ShiftsPanelScreen = () => {
                 </Col>
             </Row>
         </Container>
+        </>
     )
 }
 
