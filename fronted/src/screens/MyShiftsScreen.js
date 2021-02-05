@@ -21,6 +21,9 @@ const MyShiftsScreen = ({ history }) => {
             return days[dayWord]
         } else return null
     }
+    const theme = useSelector(state => state.theme);
+    const { isDark } = theme;
+
 
     useEffect(() => {
         if (!userInfo) {
@@ -62,7 +65,8 @@ const MyShiftsScreen = ({ history }) => {
                     </Link>
 
             </Row>
-            <Table className="right" striped bordered hover responsive size="sm" variant="dark">
+            <Table className="right" striped bordered hover responsive size="sm"     variant={isDark?'dark':'light'}
+>
                 <thead>
                     <tr>
                         <th>משמרת</th>
@@ -79,7 +83,7 @@ const MyShiftsScreen = ({ history }) => {
                                 </td>
                                 <td className={
                                     setDay(new Date(schedules[0].date).getDate() + index) === 'שישי' || setDay(new Date(schedules[0].date).getDate() + index) === 'שבת' ?
-                                        'green' : ''
+                                        isDark?'green':'light-green' : ''
                                 }>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
                                 <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
 

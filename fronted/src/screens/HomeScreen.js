@@ -70,7 +70,7 @@ const HomeScreen = ({ match }) => {
                     הגשת משמרות
                     </Link>
             </Row>
-            <Table className="right" striped bordered hover responsive size="sm" variant="dark">
+            <Table className="right" striped bordered hover responsive size="sm" variant={isDark?'dark':'light'}>
                 <thead>
                     <tr>
                         <th>רענון</th>

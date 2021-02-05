@@ -24,12 +24,13 @@ const Header = () => {
         dispatch(logout())
     }
     return (
-        <header className={`header ${isDark?'':'light-green'}`}>
-            <Navbar className={`header ${isDark?'':'light-green'}`} bg="primary" variant="dark" >
+        <header className={`header ${isDark?'':'light-header'}`}>
+            <Navbar className={`header ${isDark?'':'light-header'}`}   >
                         <ThemeModeButton/>
+                        <img className='header-img' src={'/headerLogo.jpg'}/>
                 <Container>
                     <LinkContainer to='/'>
-                        <Navbar.Brand >Work-Schedule</Navbar.Brand> 
+                        <Navbar.Brand ></Navbar.Brand> 
                     </LinkContainer>
 
                     {/* <Navbar.Toggle aria-controls="basic-navbar-nav" /> */}

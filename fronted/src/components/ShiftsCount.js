@@ -37,7 +37,7 @@ const ShiftsCount = () => {
 
 
     return (
-        <ListGroup className='mt-3'>
+        <ListGroup className='mt-3 color-dark'>
             {(users && updatedTempShifts) && users.map(user => <ListGroup.Item key={uuid()}>{user.name} - {countShifts(user.name) || 0}</ListGroup.Item>)}
 
         </ListGroup>

@@ -23,6 +23,9 @@ const ShiftsMaker = () => {
     const userLogin = useSelector(state => state.userLogin);
     const { userInfo } = userLogin;
 
+    const theme = useSelector(state => state.theme);
+    const { isDark } = theme;
+
     const updateSchedule = useSelector(state => state.updateSchedule);
     const { loading: loadingUpdateSchedule } = updateSchedule;
 
@@ -227,7 +230,7 @@ const ShiftsMaker = () => {
                 </h4>}
             </Row>
                 <DisableSubmittingButton/>
-            {dateState && <Table striped bordered hover responsive className='table-sm'>
+            {dateState && <Table striped bordered hover responsive variant={isDark?'dark':'light'} className='table-sm'>
                 <thead>
                     <tr>
                         <th>רענון</th>

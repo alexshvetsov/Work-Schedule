@@ -22,6 +22,10 @@ const SubmitShiftsScreen = ({ history }) => {
     const shiftsDateDays = useSelector(state => state.shiftsDateDays)
     const { date, daysAmount, disableSubmitting } = shiftsDateDays
 
+    const theme = useSelector(state => state.theme);
+    const { isDark } = theme;
+
+
     const getOneSubmittedShiftsByDate = useSelector(state => state.getOneSubmittedShiftsByDate)
     const { submittedShiftsByDate } = getOneSubmittedShiftsByDate
 
@@ -101,7 +105,7 @@ const SubmitShiftsScreen = ({ history }) => {
                     </Link>
 
             </Row>
-            { submittedShiftsArray && <Table className="right" striped bordered hover responsive size="sm" variant="dark">
+            { submittedShiftsArray && <Table className="right" striped bordered hover responsive size="sm" variant={isDark?'dark':'light'}>
 
                 <thead>
                     <tr>
@@ -114,7 +118,7 @@ const SubmitShiftsScreen = ({ history }) => {
                     {submittedShiftsArray.map((submittedShift, index) => (
                         <tr className={
                             setDay(new Date(date).getDate() + index) === 'שישי' || setDay(new Date(date).getDate() + index) === 'שבת' ?
-                                'green' : ''
+                            isDark?'green':'light-green' : ''
                         } key={submittedShift.date}>
                             <td>
                                 <Form.Control className='rtl' as='select' defaultValue={submittedShiftsArray[index].submittedShift} onChange={(e) => setShifts(e, index)}>

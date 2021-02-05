@@ -17,7 +17,7 @@ const Sidebar = () => {
         <>
             <Button size="sm" className='toggle-sidebar d-none d-sm-block' variant='outline-success' onClick={() => { setShow(!show) }}>☰</Button>
             <div className={`hide-nav ${show ? ' ' : 'd-none '}`} onClick={() => { setShow(!show) }}></div>
-            <Nav className={`sidebar d-none d-sm-block  rtl ${show ? '' : 'hide'}`}
+            <Nav className={`sidebar d-none d-sm-block color-light rtl ${show ? '' : 'hide'}`}
                 onClick={() => { setShow(!show) }}
                 active-sidebarkey="/home"
                 onSelect={selectedKey => setUrl(selectedKey)}

@@ -31,6 +31,9 @@ const UserEditScreen = ({ history }) => {
     const userUpdate = useSelector(state => state.userUpdate);
     const { success: successUpdate } = userUpdate;
 
+    const theme = useSelector(state => state.theme);
+    const { isDark } = theme;
+
 
     useEffect(() => {
         setEditUser('')
@@ -61,7 +64,7 @@ const UserEditScreen = ({ history }) => {
             <NewUserForm editUser={editUser} />
             {
                 (loading && users) ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
-                    <Table className='right' striped bordered hover responsive className='table-sm'>
+                    <Table className='right' striped bordered hover variant={isDark?'dark':'light'} responsive className='table-sm'>
                         <thead>
                             <tr>
                                 <th></th>

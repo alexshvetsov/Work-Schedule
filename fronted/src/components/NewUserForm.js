@@ -100,7 +100,7 @@ const NewUserForm = ({editUser}) => {
                     label="מנהל"
                     checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)}
                 />
-                <Button type="submit" className="mb-2 mr-5">
+                <Button type="submit" className=" btn-success mb-2 mr-5">
                     עדכן משתמש
                  </Button>
             </Form>

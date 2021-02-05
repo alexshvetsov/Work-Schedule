@@ -85,7 +85,7 @@ const TeamMaker = () => {
                 </Modal.Footer>
             </Modal>
 
-            <ListGroup >
+            <ListGroup className='color-dark' >
                 <ListGroup.Item variant="success">הגישו משמרות</ListGroup.Item>
                 {(users && submittedShiftsByDate) &&
                     submittedShiftsByDate.options[0][1].map(worker =>
