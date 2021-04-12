@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Table, Form, Button, Alert, Row } from 'react-bootstrap'
+import { Table, Form, Alert, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { submitShiftsAction, updateSubmittedShiftsAction } from '../actions/submitShiftsActions.js'
 import { getDateDaysAction } from '../actions/dateDaysActions';
 import DemoAlert from '../components/DemoAlert.js';
 import { Link } from 'react-router-dom';
-
+import {Button,Typography,TextField} from '@material-ui/core';
 
 
 
@@ -97,11 +97,16 @@ const SubmitShiftsScreen = ({ history }) => {
     return (
         <>
             {showDemoAlert && <DemoAlert />}
-            <Row style={{ 'direction': 'rtl' }}>
+            <Row >
                 <Link
-                    className='btn btn-primary my-3'
+                   
                     to='/'>
-                    דף הבית
+                     <Button variant="contained" color="primary" size="lg" block onClick={submitForm} disabled={disableSubmitting} style={{margin:'15px'}}>
+                     דף הבית
+            </Button>
+                    
+                 
+                    
                     </Link>
 
             </Row>
@@ -109,9 +114,9 @@ const SubmitShiftsScreen = ({ history }) => {
 
                 <thead>
                     <tr>
-                        <th>משמרות</th>
-                        <th>תאריך</th>
-                        <th>יום</th>
+                        <th  style={{fontFamily:'sans-serif',fontSize:"20px"}}>משמרות</th>
+                        <th  style={{fontFamily:'sans-serif',fontSize:"20px"}}>תאריך</th>
+                        <th  style={{fontFamily:'sans-serif',fontSize:"20px"}}>יום</th>
                     </tr>
                 </thead>
                 <tbody className='right'>
@@ -133,14 +138,19 @@ const SubmitShiftsScreen = ({ history }) => {
 
             </Table>}
             {showAlert && <Alert className='flex right rtl' variant='success'>
-                <p className='align-self right'>!!!המשמרות הוגשו בהצלחה</p>
+            <Typography variant="h5" component="h4">
+            !!!המשמרות הוגשו בהצלחה 
+                    </Typography>
             </Alert>
             }
               {disableSubmitting && <Alert className='flex right rtl' variant='danger'>
-                <p className='align-self right'>הזמן להגשת המשמרות פג</p>
+              <Typography variant="h5" component="h4">
+              הזמן להגשת המשמרות פג
+                    </Typography>
+                
             </Alert>
             }
-            <Button variant="success" size="lg" block onClick={submitForm} disabled={disableSubmitting}>
+            <Button variant="contained" color="primary" size="lg" block onClick={submitForm} disabled={disableSubmitting}>
                 הגש משמרות
             </Button>
 

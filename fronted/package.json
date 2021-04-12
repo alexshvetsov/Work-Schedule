@@ -4,6 +4,7 @@
   "proxy": "http://127.0.0.1:5000",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
     "@react-pdf/renderer": "^1.6.12",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",

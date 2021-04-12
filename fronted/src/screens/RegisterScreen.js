@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form,  Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { register } from '../actions/userActions';
 import FormContainer from '../components/FormContainer';
+import {Button,Typography,TextField} from '@material-ui/core';
 
 const RegisterScreen = ({ location, history }) => {
     const [email, setEmail] = useState('');
@@ -40,44 +41,42 @@ const RegisterScreen = ({ location, history }) => {
 
     return (
         <FormContainer>
-            <h1>Sign Up</h1>
+            <Typography variant="h3" component="h2">
+            SIGN UP
+            </Typography>
+            <br></br>
             {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && < Loader />}
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='name'>
-                    <Form.Label>Your name</Form.Label>
-                    <Form.Control type='name'
-                        placeholder='Enter name'
-                        value={name} onChange={(e) => setName(e.target.value)}>
-                    </Form.Control>
+                <TextField id="outlined-basic" label="Enter name" variant="outlined" value={name} onChange={(e) => setName(e.target.value)} style={{backgroundColor:'white',width:'350px'}}/>
+                    
                 </Form.Group>
                 <Form.Group controlId='email'>
-                    <Form.Label>Email Adress</Form.Label>
-                    <Form.Control type='email'
-                        placeholder='Enter email'
-                        value={email} onChange={(e) => setEmail(e.target.value)}>
-                    </Form.Control>
+                <TextField id="outlined-basic" label="Email Adress" variant="outlined" value={email} onChange={(e) => setEmail(e.target.value)} style={{backgroundColor:'white',width:'350px'}}/>
+                   
                 </Form.Group>
                 <Form.Group controlId='password'>
-                    <Form.Label>Your Password</Form.Label>
-                    <Form.Control type='password'
-                        placeholder='Enter Password'
-                        value={password} onChange={(e) => setPassword(e.target.value)}>
-                    </Form.Control>
+                <TextField id="outlined-basic" label="Your Password" variant="outlined" value={password} onChange={(e) => setPassword(e.target.value)} style={{backgroundColor:'white',width:'350px'}}/>
+                    
                 </Form.Group>
                 <Form.Group controlId='coniformPassword'>
-                    <Form.Label>Coniform Password</Form.Label>
-                    <Form.Control type='password'
-                        placeholder='Coniform Password'
-                        value={coniformPassword} onChange={(e) => setConiformPassword(e.target.value)}>
-                    </Form.Control>
+                <TextField id="outlined-basic" label="Coniform Password" variant="outlined" value={coniformPassword} onChange={(e) => setConiformPassword(e.target.value)} style={{backgroundColor:'white',width:'350px'}}/>
+                   
                 </Form.Group>
-
-                <Button type='submit' varient='primary'>Register</Button>
+                <Button variant="contained" color="primary" type='submit'>
+                Register
+                    </Button>
+               
             </Form>
             <Row className="py-3">
-                <Col> Already got a user? <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link></Col>
+            <Typography variant="h6" component="h7" style={{color:"black",marginLeft:'18px'}}>
+            Already got a user? <Button variant="contained" color="primary" type='submit' style={{color:'white'}}>
+            <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Login</Link> 
+                    </Button>
+            </Typography>
+             
             </Row>
         </FormContainer>
     )

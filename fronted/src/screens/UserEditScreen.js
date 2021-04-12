@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { listUsers, deleteUser } from '../actions/userActions';
 import NewUserForm from '../components/NewUserForm.js';
 import DemoAlert from '../components/DemoAlert.js';
-
+import {Button,Typography,TextField} from '@material-ui/core';
 
 const UserEditScreen = ({ history }) => {
 
@@ -59,19 +59,20 @@ const UserEditScreen = ({ history }) => {
     return (
         <>
         {showDemoAlert && <DemoAlert/>}
-
-            <h1 className="right">משתמשים</h1>
+            <Typography variant="h3" component="h2">
+                משתמשים
+            </Typography>
             <NewUserForm editUser={editUser} />
             {
                 (loading && users) ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
                     <Table className='right' striped bordered hover variant={isDark?'dark':'light'} responsive className='table-sm'>
                         <thead>
                             <tr>
-                                <th></th>
-                                <th>מנהל</th>
-                                <th>מייל</th>
-                                <th>שם</th>
-                                <th>.מס</th>
+                                {/* <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}></th>
+                                <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>מנהל</th>
+                                <th>  style={{fontFamily:'sans-serif',fontSize:"30px"}}מייל</th>
+                                <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>שם</th>
+                                <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>.מס</th> */}
                             </tr>
                         </thead>
                         <tbody>

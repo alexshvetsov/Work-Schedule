@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
+import { Form, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { login } from '../actions/userActions';
 import FormContainer from '../components/FormContainer';
+import {Button,Typography,TextField} from '@material-ui/core';
 
 const LoginScreen = ({ history, location }) => {
+  
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -33,25 +35,31 @@ const LoginScreen = ({ history, location }) => {
     return (
         <div className='rtl right'>
             <FormContainer className='rtl right'>
-                <h1>התחבר</h1>
+            <Typography variant="h3" component="h2">
+            התחבר
+            </Typography>
+                <h1></h1>
                 {error && <Message variant='danger'>{error}</Message>}
                 {loading && < Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group controlId='email'>
-                        <Form.Label>כתובת מייל</Form.Label>
-                        <Form.Control type='email'
-                            placeholder='הכנס כתובת אימייל'
-                            value={email} onChange={(e) => { setEmail(e.target.value) }}>
-                        </Form.Control>
+                    <Typography variant="h5" component="h4">
+                    כתובת מייל
+                    </Typography>
+                    <TextField id="outlined-basic" label="הכנס כתובת אימייל" variant="outlined" value={email} onChange={(e) => { setEmail(e.target.value) }}style={{backgroundColor: 'white',width:'350px'}} />
+                        
                     </Form.Group>
                     <Form.Group controlId='password'>
-                        <Form.Label>סיסמה</Form.Label>
-                        <Form.Control type='password'
-                            placeholder='הכנס סיסמה'
-                            value={password} onChange={(e) => { setPassword(e.target.value) }}>
-                        </Form.Control>
+                    <Typography variant="h5" component="h4">
+                    סיסמה 
+                    </Typography>
+                    <TextField id="outlined-basic" label='הכנס סיסמה' variant="outlined" value={password} onChange={(e) => { setPassword(e.target.value) }} style={{backgroundColor: 'white',width:'350px'}}/>    
+                       
                     </Form.Group>
-                    <Button type='submit' varient='primary'>התבחר</Button>
+                    <Button onClick={submitHandler} variant="contained" color="primary">
+                    התבחר
+                    </Button>
+                    
                 </Form>
             </FormContainer>
         </div>

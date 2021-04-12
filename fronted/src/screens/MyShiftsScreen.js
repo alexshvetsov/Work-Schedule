@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import { Table, Form, Button, Alert, Row } from 'react-bootstrap'
+import { Table, Form, Alert, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import uuid from 'react-uuid'
 import { Link } from 'react-router-dom';
 import { getAllSchedulesAction } from '../actions/scheduleActions';
-
+import {Button,Typography,TextField} from '@material-ui/core';
 
 const MyShiftsScreen = ({ history }) => {
 
@@ -61,7 +61,10 @@ const MyShiftsScreen = ({ history }) => {
                 <Link
                     className='btn btn-primary my-3'
                     to='/'>
-                    דף הבית
+                        <Typography variant="h3" component="h2">
+                        דף הבית
+                        </Typography>
+                   
                     </Link>
 
             </Row>
@@ -69,9 +72,10 @@ const MyShiftsScreen = ({ history }) => {
 >
                 <thead>
                     <tr>
-                        <th>משמרת</th>
-                        <th>יום</th>
-                        <th>תאריך</th>
+                        
+                        <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>משמרת</th>
+                        <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>יום</th>
+                        <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>תאריך</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -92,7 +96,7 @@ const MyShiftsScreen = ({ history }) => {
                     }
                 </tbody>
             </Table>
-            <Button onClick={exportPDF}>הורד משמרות </Button>
+            <Button onClick={exportPDF} variant="contained" color="primary">הורד משמרות </Button>
         </>
     )
 }

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { Form, InputGroup, FormControl } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {  register, updateUser } from '../actions/userActions';
 import DemoAlert from '../components/DemoAlert.js';
-
+import {Button,Typography,TextField} from '@material-ui/core';
 
 
 const NewUserForm = ({editUser}) => {
@@ -63,18 +63,20 @@ const NewUserForm = ({editUser}) => {
         {showDemoAlert && <DemoAlert/>}
 
             <Form inline className='rtl' onSubmit={submitHandler}>
-                <Form.Label htmlFor="inlineFormInputName2" srOnly>
-                    Name
-                </Form.Label>
+            <Typography variant="h3" component="h2">
+            Name
+            </Typography>
+                
                 <Form.Control required
                     className="mb-2 mr-sm-2"
                     id="inlineFormInputName2"
                     placeholder="שם מלא"
                     value={name} onChange={(e) => setName(e.target.value)}
                 />
-                <Form.Label htmlFor="inlineFormInputGroupUsername2" srOnly>
-                    Username
-                </Form.Label>
+                <Typography variant="h3" component="h2">
+                Username
+            </Typography>
+               
                 <InputGroup className="mb-2 mr-sm-2">
                     <InputGroup.Prepend>
                         <InputGroup.Text>@</InputGroup.Text>
@@ -83,9 +85,10 @@ const NewUserForm = ({editUser}) => {
                         value={email} onChange={(e) => setEmail(e.target.value)}
                         id="inlineFormInputGroupUsername2" placeholder="מייל- שם משתמש" />
                 </InputGroup>
-                <Form.Label htmlFor="inlineFormInputpassWprf2" srOnly>
-                    password
-                </Form.Label>
+                <Typography variant="h3" component="h2">
+                password
+            </Typography>
+             
                 <Form.Control required
                     className="mb-2 mr-sm-2"
                     id="inlineFormInputpassWprf2"
@@ -100,9 +103,10 @@ const NewUserForm = ({editUser}) => {
                     label="מנהל"
                     checked={isAdmin} onChange={(e) => setIsAdmin(e.target.checked)}
                 />
-                <Button type="submit" className=" btn-success mb-2 mr-5">
-                    עדכן משתמש
-                 </Button>
+                 <Button variant="contained" color="primary">
+                 עדכן משתמש
+                    </Button>
+               
             </Form>
         </>
     )

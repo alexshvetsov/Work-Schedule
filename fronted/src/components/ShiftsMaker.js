@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Table, Row, Modal, Button, Form, DropdownButton, Dropdown, Spinner } from 'react-bootstrap'
+import { Table, Row, Modal, Form, DropdownButton, Dropdown, Spinner } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
 import "react-datepicker/dist/react-datepicker.css";
 import uuid from 'react-uuid'
 import { updateDateDaysAction, getDateDaysAction } from '../actions/dateDaysActions';
 import { postScheduleAction, updateScheduleAction, postTemporaryScheduleAction, updateTemporaryScheduleAction } from '../actions/scheduleActions';
 import DemoAlert from '../components/DemoAlert.js';
-
+import {Button,Typography,TextField} from '@material-ui/core';
 
 import { UPDATE_TEMP_SHIFTS_ARRAY } from '../constants/scheduleConstants';
 import { DisableSubmittingButton } from './DisableSubmittingButton';
@@ -314,12 +314,14 @@ const ShiftsMaker = () => {
             </Table>
             }
 
-            <Button variant="success" className="mr-3" onClick={postDoneSchedule}>
-                שלח סידור חדש
-            </Button>
-            <Button variant="success" className="" onClick={postUpdateTemporarySchedule} disabled={disableSaveButton}>
-                שמור סידור
-                </Button>
+      
+            <Button variant="contained" color="primary" onClick={postDoneSchedule}disabled={disableSaveButton}>
+            שלח סידור חדש
+                    </Button>
+            <Button variant="contained" color="primary" onClick={postUpdateTemporarySchedule} disabled={disableSaveButton}>
+            שמור סידור
+                    </Button>
+            
             {(loadingUpdateSchedule || loadingPostTemporarySchedule || loadingUpdateTemporarySchedule) ? <div className='spinner'><Spinner className='align-self' animation="border" role="status">
                 <span className="sr-only">Loading...</span>
             </Spinner></div> : null}

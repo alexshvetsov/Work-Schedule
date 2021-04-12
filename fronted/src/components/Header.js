@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 import Sidebar from './Sidebar.js';
 import {
     Navbar, Nav, Container,
-} from 'react-bootstrap'
+} from 'react-bootstrap';
+import {Button,Typography,TextField} from '@material-ui/core';
 import ThemeModeButton from './ThemeModeButton';
 
 const Header = () => {
@@ -37,7 +37,10 @@ const Header = () => {
                     {/* <Navbar.Collapse id="basic-navbar-nav"> */}
                         <Nav className="ml-auto">
                             {userInfo && (
-                                <Button variant="danger" size="sm" onClick={logoutHandler} className='mr-3'>התנתק</Button>
+                                 <Button variant="contained" color="primary" >
+                                 התנתק
+                                 </Button>
+                               
                             )}
 
                             {userInfo && (<Navbar.Text  className='mr-2' style={{ 'display': 'flex' }}>
@@ -46,7 +49,10 @@ const Header = () => {
                             )}
 
                             {!userInfo && <LinkContainer to='/login'>
-                                <Nav.Link >התחבר<i className='fas fa-user pl-2'></i></Nav.Link>
+                                <Nav.Link > <Button variant="contained" color="primary" >
+                                
+                                 התחבר
+                                 <i className='fas fa-user pl-2'></i> </Button></Nav.Link>
                             </LinkContainer>}
 
                         </Nav>
