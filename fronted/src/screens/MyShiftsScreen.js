@@ -61,7 +61,7 @@ const MyShiftsScreen = ({ history }) => {
                 <Link
                     className={'btn btn-primary my-3'}
                     to='/'>
-                    דף הבית
+                    דף veuso
                  </Link>
 
             </Row>
