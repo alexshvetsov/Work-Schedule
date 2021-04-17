@@ -27,7 +27,7 @@ const Header = () => {
         <header className={`header ${isDark?'':'light-header'}`}>
             <Navbar className={`header ${isDark?'':'light-header'}`}   >
                         <ThemeModeButton/>
-                        <img className='header-img' src={'/headerLogo.jpg'}/>
+                        <img className='header-img' src={'/logo2.png'}/>
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand ></Navbar.Brand> 

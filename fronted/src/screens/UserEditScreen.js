@@ -68,16 +68,16 @@ const UserEditScreen = ({ history }) => {
                     <Table className='right' striped bordered hover variant={isDark?'dark':'light'} responsive className='table-sm'>
                         <thead>
                             <tr>
-                                {/* <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}></th>
+                                <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}></th>
                                 <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>מנהל</th>
-                                <th>  style={{fontFamily:'sans-serif',fontSize:"30px"}}מייל</th>
+                                <th style={{fontFamily:'sans-serif',fontSize:"30px"}}>מייל</th>
                                 <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>שם</th>
-                                <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>.מס</th> */}
+                                <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>.מס</th>
                             </tr>
                         </thead>
                         <tbody>
                             {users && users.map(user => (
-                                <tr key={user._id}>
+                                <tr key={user._id}> 
                                     <td>
                                         <Button variant='light' className='btn-sm' onClick={() => setEditUser(editUser === user._id ? '' : user._id)}>
                                             <i className='fas fa-edit'></i>

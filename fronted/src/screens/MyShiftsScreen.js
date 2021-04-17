@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import uuid from 'react-uuid'
 import { Link } from 'react-router-dom';
 import { getAllSchedulesAction } from '../actions/scheduleActions';
-import {Button,Typography,TextField} from '@material-ui/core';
+import { Button, Typography, TextField } from '@material-ui/core';
 
 const MyShiftsScreen = ({ history }) => {
 
@@ -59,23 +59,20 @@ const MyShiftsScreen = ({ history }) => {
         <>
             <Row style={{ 'direction': 'rtl' }}>
                 <Link
-                    className='btn btn-primary my-3'
+                    className={'btn btn-primary my-3'}
                     to='/'>
-                        <Typography variant="h3" component="h2">
-                        דף הבית
-                        </Typography>
-                   
-                    </Link>
+                    דף הבית
+                 </Link>
 
             </Row>
-            <Table className="right" striped bordered hover responsive size="sm"     variant={isDark?'dark':'light'}
->
+            <Table className="right" striped bordered hover responsive size="sm" variant={isDark ? 'dark' : 'light'}
+            >
                 <thead>
                     <tr>
-                        
-                        <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>משמרת</th>
-                        <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>יום</th>
-                        <th  style={{fontFamily:'sans-serif',fontSize:"30px"}}>תאריך</th>
+
+                        <th style={{ fontFamily: 'sans-serif', fontSize: "30px" }}>משמרת</th>
+                        <th style={{ fontFamily: 'sans-serif', fontSize: "30px" }}>יום</th>
+                        <th style={{ fontFamily: 'sans-serif', fontSize: "30px" }}>תאריך</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -87,7 +84,7 @@ const MyShiftsScreen = ({ history }) => {
                                 </td>
                                 <td className={
                                     setDay(new Date(schedules[0].date).getDate() + index) === 'שישי' || setDay(new Date(schedules[0].date).getDate() + index) === 'שבת' ?
-                                        isDark?'green':'light-green' : ''
+                                        isDark ? 'green' : 'light-green' : ''
                                 }>{setDay(new Date(schedules[0].date).getDate() + index)}</td>
                                 <td>{`${new Date(schedules[0].date).getDate() + index}/${new Date(schedules[0].date).getMonth() + 1}/${new Date(schedules[0].date).getFullYear()}`}</td>
 
