@@ -53,11 +53,11 @@ const LoginScreen = ({ history, location }) => {
                     <Typography variant="h5" component="h4">
                     סיסמה 
                     </Typography>
-                    <TextField id="outlined-basic" label='הכנס סיסמה' variant="outlined" value={password} onChange={(e) => { setPassword(e.target.value) }} style={{backgroundColor: 'white',width:'350px'}}/>    
+                    <TextField id="outlined-basic" label='הכנס סיסמה' type='password' variant="outlined" value={password} onChange={(e) => { setPassword(e.target.value) }} style={{backgroundColor: 'white',width:'350px'}}/>    
                        
                     </Form.Group>
                     <Button onClick={submitHandler} variant="contained" color="primary">
-                    התבחר
+                    התחבר
                     </Button>
                     
                 </Form>

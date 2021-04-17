@@ -5,7 +5,7 @@ import { submitShiftsAction, updateSubmittedShiftsAction } from '../actions/subm
 import { getDateDaysAction } from '../actions/dateDaysActions';
 import DemoAlert from '../components/DemoAlert.js';
 import { Link } from 'react-router-dom';
-import {Button,Typography,TextField} from '@material-ui/core';
+import { Button, Typography, TextField } from '@material-ui/core';
 
 
 
@@ -97,33 +97,27 @@ const SubmitShiftsScreen = ({ history }) => {
     return (
         <>
             {showDemoAlert && <DemoAlert />}
-            <Row >
+            <Row style={{ 'direction': 'rtl' }}>
                 <Link
-                   
+                    className={'btn btn-primary my-3'}
                     to='/'>
-                     <Button variant="contained" color="primary" size="lg" block onClick={submitForm} disabled={disableSubmitting} style={{margin:'15px'}}>
-                     דף הבית
-            </Button>
-                    
-                 
-                    
-                    </Link>
-
+                    דף הבית
+                </Link>
             </Row>
-            { submittedShiftsArray && <Table className="right" striped bordered hover responsive size="sm" variant={isDark?'dark':'light'}>
+            { submittedShiftsArray && <Table className="right" striped bordered hover responsive size="sm" variant={isDark ? 'dark' : 'light'}>
 
                 <thead>
                     <tr>
-                        <th  style={{fontFamily:'sans-serif',fontSize:"20px"}}>משמרות</th>
-                        <th  style={{fontFamily:'sans-serif',fontSize:"20px"}}>תאריך</th>
-                        <th  style={{fontFamily:'sans-serif',fontSize:"20px"}}>יום</th>
+                        <th style={{ fontFamily: 'sans-serif', fontSize: "20px" }}>משמרות</th>
+                        <th style={{ fontFamily: 'sans-serif', fontSize: "20px" }}>תאריך</th>
+                        <th style={{ fontFamily: 'sans-serif', fontSize: "20px" }}>יום</th>
                     </tr>
                 </thead>
                 <tbody className='right'>
                     {submittedShiftsArray.map((submittedShift, index) => (
                         <tr className={
                             setDay(new Date(date).getDate() + index) === 'שישי' || setDay(new Date(date).getDate() + index) === 'שבת' ?
-                            isDark?'green':'light-green' : ''
+                                isDark ? 'green' : 'light-green' : ''
                         } key={submittedShift.date}>
                             <td>
                                 <Form.Control className='rtl' as='select' defaultValue={submittedShiftsArray[index].submittedShift} onChange={(e) => setShifts(e, index)}>
@@ -138,16 +132,16 @@ const SubmitShiftsScreen = ({ history }) => {
 
             </Table>}
             {showAlert && <Alert className='flex right rtl' variant='success'>
-            <Typography variant="h5" component="h4">
-            !!!המשמרות הוגשו בהצלחה 
+                <Typography variant="h5" component="h4">
+                    !!!המשמרות הוגשו בהצלחה
                     </Typography>
             </Alert>
             }
-              {disableSubmitting && <Alert className='flex right rtl' variant='danger'>
-              <Typography variant="h5" component="h4">
-              הזמן להגשת המשמרות פג
+            {disableSubmitting && <Alert className='flex right rtl' variant='danger'>
+                <Typography variant="h5" component="h4">
+                    הזמן להגשת המשמרות פג
                     </Typography>
-                
+
             </Alert>
             }
             <Button variant="contained" color="primary" size="lg" block onClick={submitForm} disabled={disableSubmitting}>

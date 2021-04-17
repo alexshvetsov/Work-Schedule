@@ -49,15 +49,17 @@ main{
   }
 
   .header-img{
-    /* min-height: 3rem; */
-    /* max-height: 100%; */
-    width: 350px; 
+    max-width: 150px; 
   }
 
   .overflow-y{
     overflow-y: hidden; 
   }
 
+  .navbar-text span{
+    color:#fff;
+    margin-right: 1rem;
+  }
   .center{
     text-align: center !important;
   }
@@ -201,7 +203,7 @@ main{
   } 
 
   .theme_toggle_container{
-    width: 3rem;
+   min-width: 3rem;
     height: 1.6rem;
     background-color: white ; 
     margin: auto;
@@ -245,21 +247,32 @@ main{
 
   .options-table{
     background-color: #ffffff ;
-    position: sticky;
-    top: 1rem;
+    position:   sticky ;
+    margin: 0 auto;
     margin-bottom: 2rem;
     z-index: 100;
+    text-align: center;
+    color: #55595c;
+    min-width: 50%;
+    max-height: 2rem;
   }
-  .options-table>thead{
-    display: block;
+ 
+  .options-table thead tr{
+    min-width: 100% !important;
+    text-align: center;
   }
   .options-table>tbody{
-    display: block;
-    max-height: 15rem  !important;
     overflow-y: auto;    /* Trigger vertical scroll    */
     overflow-x: hidden;
+    max-height: 2rem  !important;
 
   } 
   .options-table>tbody>tr:nth-of-type(even){
     background-color: #5745f545;
   }
+  .container-fluid.options-table{
+    text-align: center;}
+
+    .user-form-header{
+      text-align: right;
+    }

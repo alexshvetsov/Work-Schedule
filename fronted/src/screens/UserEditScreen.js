@@ -59,7 +59,7 @@ const UserEditScreen = ({ history }) => {
     return (
         <>
         {showDemoAlert && <DemoAlert/>}
-            <Typography variant="h3" component="h2">
+            <Typography className='user-form-header' variant="h3" component="h2">
                 משתמשים
             </Typography>
             <NewUserForm editUser={editUser} />

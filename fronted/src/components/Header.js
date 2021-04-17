@@ -27,7 +27,7 @@ const Header = () => {
         <header className={`header ${isDark?'':'light-header'}`}>
             <Navbar className={`header ${isDark?'':'light-header'}`}   >
                         <ThemeModeButton/>
-                        <img className='header-img' src={'/logo2.png'}/>
+                        <img className='header-img' src={'/header2.png'}/> 
                 <Container>
                     <LinkContainer to='/'>
                         <Navbar.Brand ></Navbar.Brand> 
@@ -37,7 +37,7 @@ const Header = () => {
                     {/* <Navbar.Collapse id="basic-navbar-nav"> */}
                         <Nav className="ml-auto">
                             {userInfo && (
-                                 <Button variant="contained" color="primary" >
+                                 <Button onClick={logoutHandler} variant="contained" color="primary" >
                                  התנתק
                                  </Button>
                                

@@ -6,7 +6,7 @@ import uuid from 'react-uuid'
 import { updateDateDaysAction, getDateDaysAction } from '../actions/dateDaysActions';
 import { postScheduleAction, updateScheduleAction, postTemporaryScheduleAction, updateTemporaryScheduleAction } from '../actions/scheduleActions';
 import DemoAlert from '../components/DemoAlert.js';
-import {Button,Typography,TextField} from '@material-ui/core';
+import { Button, Typography, TextField } from '@material-ui/core';
 
 import { UPDATE_TEMP_SHIFTS_ARRAY } from '../constants/scheduleConstants';
 import { DisableSubmittingButton } from './DisableSubmittingButton';
@@ -116,9 +116,9 @@ const ShiftsMaker = () => {
     }
 
     const sumbitForm = (e) => {
-        if(userInfo.name ==='demo'){
+        if (userInfo.name === 'demo') {
             setShowDemoAlert(true)
-            setTimeout(()=>{setShowDemoAlert(false); setShow(false)},5000)
+            setTimeout(() => { setShowDemoAlert(false); setShow(false) }, 5000)
             return
         }
         e.preventDefault()
@@ -154,9 +154,9 @@ const ShiftsMaker = () => {
     }, [dispatch, daysAmountState, shifts.length, dateState, schedule])
 
     const postDoneSchedule = () => {
-        if(userInfo.name ==='demo'){
+        if (userInfo.name === 'demo') {
             setShowDemoAlert(true)
-            setTimeout(()=>setShowDemoAlert(false),5000)
+            setTimeout(() => setShowDemoAlert(false), 5000)
             return
         }
         if (!schedule || !schedule._id) {
@@ -169,9 +169,9 @@ const ShiftsMaker = () => {
     }
 
     const postUpdateTemporarySchedule = () => {
-        if(userInfo.name ==='demo'){
+        if (userInfo.name === 'demo') {
             setShowDemoAlert(true)
-            setTimeout(()=>setShowDemoAlert(false),5000)
+            setTimeout(() => setShowDemoAlert(false), 5000)
             return
         }
         if (!schedule) {
@@ -184,8 +184,8 @@ const ShiftsMaker = () => {
 
     return (
         <>
-        {showDemoAlert && <DemoAlert/>}
-        
+            {showDemoAlert && <DemoAlert />}
+
             <Row style={{ 'direction': 'rtl' }}>
                 <Button variant="success" className="my-3" onClick={handleShow}>
                     עדכן ימים ותאריך להכנת סידור עבודה
@@ -229,8 +229,8 @@ const ShiftsMaker = () => {
                     {`${new Date(dateState).getDate()}/${new Date(dateState).getMonth() + 1}`} - {`${new Date(dateState).getDate() + daysAmountState - 1}/${new Date(dateState).getMonth() + 1}`}
                 </h4>}
             </Row>
-                <DisableSubmittingButton/>
-            {dateState && <Table striped bordered hover responsive variant={isDark?'dark':'light'} className='table-sm'>
+            <DisableSubmittingButton />
+            {dateState && <Table striped bordered hover responsive variant={isDark ? 'dark' : 'light'} className='table-sm'>
                 <thead>
                     <tr>
                         <th>רענון</th>
@@ -314,14 +314,14 @@ const ShiftsMaker = () => {
             </Table>
             }
 
-      
-            <Button variant="contained" color="primary" onClick={postDoneSchedule}disabled={disableSaveButton}>
-            שלח סידור חדש
+
+            <Button variant="contained" color="primary" onClick={postDoneSchedule} disabled={disableSaveButton}>
+                שלח סידור חדש
                     </Button>
             <Button variant="contained" color="primary" onClick={postUpdateTemporarySchedule} disabled={disableSaveButton}>
-            שמור סידור
+                שמור סידור
                     </Button>
-            
+
             {(loadingUpdateSchedule || loadingPostTemporarySchedule || loadingUpdateTemporarySchedule) ? <div className='spinner'><Spinner className='align-self' animation="border" role="status">
                 <span className="sr-only">Loading...</span>
             </Spinner></div> : null}
